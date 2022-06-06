@@ -1,11 +1,12 @@
+## Welcome to Cheung Wong's Pages
 
 Cheung Wong (pronounced as Xiang HUANG in Mandarian) is studying in Nanjing University. His research interests are natural language processing, software engineering and AI's fairness.
 
-This page is yet not a typical programmer's page. It serves as a record his normal life. Mainly three topics will be covered.
+This page is yet not a typical programmer's page. It serves as a record of his normal life. Mainly three topics will be covered.
 
 ### Coding
 
-Most related to his study and work, this blog is about algorithms learning, programming practice and paper reproduction. 
+Perhaps most pertinent to his study and work, this blog is about algorithm learning, programming practice and paper reproduction. 
 
 - How to crack tree traversal problem?
 - What happened when we say an NLP software is unfair?
@@ -15,7 +16,7 @@ Most related to his study and work, this blog is about algorithms learning, prog
 ### Reading
 
 As a bookworm, he persists in reading various books every week. He will share his opinion in reading and look forward to discussing with you.  
-BTW, the page's description 'He felt very young; at the same time unspeakably aged.' is a parody for _Mrs Dalloway_, a famous novel by _Virginia Woolf_
+BTW, the page's description 'He felt very young; at the same time unspeakably aged.' is a parody for _Mrs Dalloway_, a famous novel by Virginia Woolf.
 
 ### Others
 
