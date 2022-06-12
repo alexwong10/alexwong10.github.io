@@ -1,7 +1,10 @@
 ---
-layout: page
+layout: default
 title: "About"
 permalink: /about/
 ---
 
-It is Cheung Wong's blog. Thanks for your attention.
+“Do I dare
+Disturb the universe?
+In a minute there is time
+For decisions and revisions which a minute will reverse.” 
