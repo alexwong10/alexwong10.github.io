@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 ## Yet another blog
 
 Cheung Wong (pronounced as Xiang HUANG in Mandarian) is studying in Nanjing University. His research interests are natural language processing, software engineering and AI's fairness.
