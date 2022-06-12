@@ -3,6 +3,7 @@ layout: post
 title: "Quickstart: How to write blogs on GitHub"
 date: 2022-06-06 21:00:00 +0800
 categories: coding
+tags: tutorial
 ---
 
 ## Quickstart: How to write blogs on GitHub
@@ -44,12 +45,20 @@ title: "POST TITLE"
 date: YYYY-MM-DD hh:mm:ss -0000
 categories: CATEGORY-1 CATEGORY-2
 ```
-
+We can control the publishing path in ```_config.yml```.
 
 ### [**Build Locally**](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
-In order to write with a way of *What You See Is What You Get*, we also want to test it locally rather than push it to github and wait for it to be built every time we finish a blog. 
+In order to write in a way of *What You See Is What You Get*, we also want to preview and test changes to our site locally, rather than push it to github and wait for it to be built every time we finish a blog. 
 
 #### Prerequisites
 First, we need to configure local environment.
 - Install [Jekyll](https://jekyllrb.com/docs/installation/)
-- 
+- Create a Jekyll site. The key process is to create a Gemfile and write necessary dependencies.
+
+>Jekyll is a **static site generator** with built-in support for GitHub Pages and a simplified build process. Jekyll takes Markdown and HTML files and creates a complete static website based on your choice of layouts.
+
+Through command ```bundle exec jekyll serve```, we can build our blog in default on 127.0.0.0:4000. Static pages generated will be stored on local ```_site``` directory.
+
+
+
+
