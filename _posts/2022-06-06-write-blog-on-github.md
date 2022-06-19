@@ -1,6 +1,5 @@
 ---
 layout: post
-read_time: true
 show_date: true
 title: "Quickstart: How to write blogs on GitHub"
 date: 2022-06-06
