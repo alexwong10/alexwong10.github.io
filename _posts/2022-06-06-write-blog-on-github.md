@@ -1,12 +1,15 @@
 ---
 layout: post
+read_time: true
+show_date: true
 title: "Quickstart: How to write blogs on GitHub"
-date: 2022-06-06 21:00:00 +0800
+date: 2022-06-06
 categories: coding
-tags: tutorial
+img: posts/20220606/ukiyoe-sample.jpg
+tags: [tutorial]
+author: cheungwong
+Description: "Have you ever tried to build your own website and share your what you learn with others? Github provide a foolproof way to do that."
 ---
-
-## Quickstart: How to write blogs on GitHub
 
 > TL;DR: follow [the official guide](https://docs.github.com/en/pages/quickstart).
 
@@ -27,6 +30,8 @@ Besides, we can rewrite the README.md as we like, which will be the introduction
 ### [**Adding Content**](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-content-to-your-github-pages-site-using-jekyll#about-content-in-jekyll-sites)
 
 The main types of content for Jekyll sites are pages and posts. 
+
+<center><img src='./assets/img/posts/20220606/webrick-error.png'></center>
 
 #### Pages
 A page is for standalone content that isn't associated with a specific date, such as an "About" page. We can add following YAML frontmatter to the top of the file so that it can be published on ```https://USERNAME.github.io/URL-PATH```

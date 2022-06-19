@@ -1,56 +1,82 @@
-remote_theme: pages-themes/minimal@v0.2.0
-plugins:
-- jekyll-remote-theme
-logo: /assets/img/logo.jpg
-title: Cheung Wong
-description: He felt very young; at the same time unspeakably aged.
+# Site settings
+title: Yet Another blog
+description: 'He felt very young; at the same time unspeakably aged.' # this means to ignore newlines until "baseurl:"
+permalink: ':title:output_ext'
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://cheungwong.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+logo: "/assets/img/branding/MVM-logo-full.svg"
+logo-icon: "/assets/img/branding/MVM-symbol.svg"
+logo-icon-SEO: "/assets/img/branding/kuriboh.JPG" # must be a non SVG file
 
+# Night/Dark mode
+# Default mode is "auto", "auto" is for auto nightshift
+# (19:00 - 07:00), "manual" is for manual toggle, and
+# "on/off" is for default on/off.
+#
+# Whatever the user's choice is, it will supersede the
+# default setting of the site and be kept during the
+# visit (session). Only the dark mode setting is "manual",
+# it will be always kept on every visit (i.e. no matter
+# the browser is closed or not)
+night_mode: "auto"
+
+logo-dark: "/assets/img/branding/MVM-logo-full-dark.svg"
+highlight_theme: syntax-base16.monokai.dark # select a dark theme for the code highlighter if needed
+
+# Author settings
+author: Cheung Wong # add your name
+author-pic: myself.jpg
+about-author: Cheung Wong (pronounced as Xiang HUANG in Mandarian) is studying in Nanjing University. His research interests are natural language processing, software engineering and AI's fairness.
+
+# Contact links
+email: cheungwong33@gmail.com # Add your Email address
+phone: # Add your Phone number
+website: https://cheungwong.github.io # Add your website
+# linkedin: amaynez # Add your Linkedin handle
+github: cheungwong # Add your Github handle
+# twitter: '@MvmThe' # Add your Twitter handle
+# bandcamp: armandomaynez # Add your Bandcamp username
+stackoverflow: kuriboh # Add your stackoverflow account
+
+# Newsletter
+# mailchimp: "https://github.us1.list-manage.com/subscribe/post?u=8ece198b3eb260e6838461a60&amp;id=397d90b5f4"
+
+# Disqus
+# discus_identifier: amaynez-github-io # Add your discus identifier
+# comments_curtain: yes # leave empty to show the disqus embed directly
+
+# Tracker
+# analytics: G-R8SZS2YBZK
+# fbadmin: ar.maybach
+
+# Paginate
+paginate: 6
+paginate_path: 'page:num'
+words_per_minute: 200
+
+# Build settings
+markdown: kramdown
+mathjax: true
+highlighter: rouge
+compress_html:
+  clippings: all
+  comments: all
+  startings: [html, head, body]
 
 # Outputting
-permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
-paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-# Archives
-#  Type
-#  - GitHub Pages compatible archive pages built with Liquid ~> type: liquid (default)
-#  - Jekyll Archives plugin archive pages ~> type: jekyll-archives
-#  Path (examples)
-#  - Archive page should exist at path when using Liquid method or you can
-#    expect broken links (especially with breadcrumbs enabled)
-#  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
-#  - <base_path>/categories/my-awesome-category/index.html ~> path: /categories/
-#  - <base_path>/my-awesome-category/index.html ~> path: /
 
 category_archive:
   type: liquid
   path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
-# https://github.com/jekyll/jekyll-archives
-# jekyll-archives:
-#   enabled:
-#     - categories
-#     - tags
-#   layouts:
-#     category: archive-taxonomy
-#     tag: archive-taxonomy
-#   permalinks:
-#     category: /categories/:name/
-#     tag: /tags/:name/
 
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
+sass:
+  style: compressed
 
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-sitemap
+
+include: [_pages]
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock", "package-lock.json", "assets/css/sass/"]
