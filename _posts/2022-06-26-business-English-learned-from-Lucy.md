@@ -81,4 +81,70 @@ tell inform
 ```
 
 ### How to sell yourself in English
+25 words you should use to sell
+- determined: have determination to get a job done
+- hard-working: put a lot of effort into a job
+- diligent: show care and effort in your work
+- trustworthy: people rely on you to be good
+- a team player: work well in a team
+- motivated: willing to do something that involves hard work and effort
+- reliable: can be trusted to do something well
+- a self-starter: able to work on your own and make your own decisions without needing anyone to tell them what to do
+- loyal: remain faithful to your company
+- studious: spend a lot of time studying or reading
+- attentive: helpful and make sure that people have what they need
+- conscientious: take care to do things carefully and correctly
+- industrious: hard working and get a lot done
+- dedicated: work hard at something because it's important to you
+- dynamic: you produce change, action, or effects
+- enterprising: have the ability to think of new projects or new ways of doing things
+- enthusiastic: show a lot of excitement, and interest about things
+- self-aware: have a lot of knowledge, and understanding, of your own character
+- consisitent: behave in a predictable way
+- organised: able to plan your work and life in an efficient way
+- professional: well trained and extremely skilled
+- methodical: do things in a systematic way
+- logical: do things in a careful and well-thought-out way
+- skillful: good at doing something, especially something that needs a particular ability or special training
+- passionate: become emotionally invested in what you're doing
+
+Include powerful action verbs
+- management and leadership: assigned, delegated, organised, scheduled, directed
+- communication: addressed, corresponded, moderated, negotiated, authored
+- research: clarified, critiqued, examined, inspected, investigated
+- technical skills: assembled, calculated, computed, fabricated, programmed
+- organisations: catalogued, compiled, categorised, logged, chartered
+- financial: appraised, audited, balanced, budgeted, forecasted
+- creative: conceptualised, designed, illustrated, shaped
+- education: coached, guided, stimulated, informed, advised
+
+Avoid weak words
+- stuff/things -> too lazy, use a more descriptive words
+- get -> too ambiguous
+- very -> use a powerful adjective instead, like 'fairly', 'really', and 'quite'
+- just -> implies that it shouldn't be prioritised
+- probably -> shows doubt or uncerntainty
+- I think, In my opinion, Personally, I'm not sure, I feel like -> gives people the chance to dismiss you
+- whatever -> too dismissive
+
+### 7 Most Common Interview Questions & Answers
+
+**Can you tell me about yourself?**
+
+builds the connection between you and the interviewer and shows why you are the perfect person for the job
+
+Formula
+- start with the present: where you are right now
+- follow with the past: where you were before, skills and experience you gained
+- finish with the future: show how excited and eager you are for this new opportunity
+
+```
+I'm currently a sales intern at The Coffee Bean Co, where I'm being metored by the head of sales. Before that, I was studying for a business degree at the University of Chelsea, and working at a Shoe Shop franchise, where I developed my sales skills.
+
+ I really enjoyed the sales aspects of the retail position, and now I would love to work in a corporated sales position and take on more responsibility, which is why I am so excited about this sales manager position.
+```
+
+You don't need to tell them your name or your age or where you're from (avoid irrelavant information)
+
+**How did you hear about this position?**
 
