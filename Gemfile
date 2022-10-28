@@ -1,11 +1,7 @@
 source 'https://rubygems.org'
+gem 'jekyll-paginate'
 
-gem 'jekyll'
-
-group :jekyll_plugins do
-  gem "jekyll-paginate"
-  gem "jekyll-feed"
-  gem "jekyll-sitemap"
-end
+gem "jekyll", "~> 4.0"
+gem "rake"
 
 gem "webrick", "~> 1.7"
