@@ -1,9 +1,0 @@
-I"Å<h2 id="what-is-etl">What is ETL?</h2>
-<p>ETL is a process that <strong>extract</strong>s, <strong>transform</strong>s, and <strong>load</strong>s data from multiple sources to a data warehouse or other unified data repository.</p>
-
-<h2 id="what-does-kettle-do">What does Kettle do?</h2>
-
-<h2 id="more-than-kettle">More than Kettle?</h2>
-
-<p>[1]https://www.ibm.com/cloud/learn/etl</p>
-:ET
