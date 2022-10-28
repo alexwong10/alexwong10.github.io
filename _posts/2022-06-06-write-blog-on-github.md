@@ -70,6 +70,7 @@ Through command ```bundle exec jekyll serve```, we can build our blog in default
 - ```_posts```: Contents we want to post. It is the pool of our thoughts.
 - ```_site```: Static pages automatically generated will be stored on local ```_site``` directory. We can ignore them during version control. 
 - ```assets```: Front end resources like css, fonts, and javascript are included. We can also upload images shown in our blogs to the ```img``` folder. 
+- ```_config.yml```: Configuration file in yaml style.
 - ```404.html``` and ```ipfs-404.html```: Defines a page when the page is not accessible.
 - ```Gemfile```: Dependicies of jekyll.
 - ```index.html```: The home page of our website.
