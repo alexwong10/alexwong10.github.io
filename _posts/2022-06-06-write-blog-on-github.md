@@ -7,7 +7,7 @@ categories: coding
 img: posts/20220606/ukiyoe-sample.jpg
 tags: [tutorial]
 author: cheungwong
-Description: "Have you ever tried to build your own website and share your what you learn with others? Github provide a foolproof way to do that."
+Description: "Have you ever tried to build your own website and share your what you learn with others? Github provides a foolproof way to do that."
 ---
 
 > TL;DR: follow [the official guide](https://docs.github.com/en/pages/quickstart).
@@ -61,7 +61,25 @@ First, we need to configure local environment.
 
 >Jekyll is a **static site generator** with built-in support for GitHub Pages and a simplified build process. Jekyll takes Markdown and HTML files and creates a complete static website based on your choice of layouts.
 
-Through command ```bundle exec jekyll serve```, we can build our blog in default on 127.0.0.0:4000. Static pages generated will be stored on local ```_site``` directory.
+#### Here we go
+Through command ```bundle exec jekyll serve```, we can build our blog in default on 127.0.0.0:4000. Now let's dive into our folder and explore the structrue and important configuration file of our websites.
+
+- ```_includes```: Similar to header files we include in C++. But here, we include them to build a web page.
+- ```_layouts```: Defines different styles for us to arrange how a page looks like.
+- ```_pages```: Defines more specificly how a page looks like, which often extend html file in ```_layouts```.
+- ```_posts```: Contents we want to post. It is the pool of our thoughts.
+- ```_site```: Static pages automatically generated will be stored on local ```_site``` directory. We can ignore them during version control. 
+- ```assets```: Front end resources like css, fonts, and javascript are included. We can also upload images shown in our blogs to the ```img``` folder. 
+- ```404.html``` and ```ipfs-404.html```: Defines a page when the page is not accessible.
+- ```Gemfile```: Dependicies of jekyll.
+- ```index.html```: The home page of our website.
+- ```sitemap.xml```: Defines how a link is mapped to a specific html file. 
+
+To wrap up, if we do not need to change the website style, it is enough for us to focus on ```_posts``` folder. For those who learn frontend knowledge, it is easy for them to design their own page's look by modifying the related file.
+
+Now we can happily write down what we want and post them to the world. 
+
+
 
 
 

@@ -1,0 +1,54 @@
+I"�<h2 id="why-listener">Why Listener?</h2>
+<p>We know that using ServletContext, we can create an attribute with application scope that all other servlets can access.</p>
+
+<p>But we can initialize ServletContext init parameters as String only in deployment descriptor (web.xml). What if our application is database oriented and we want to set an attribute in ServletContext for Database Connection. Also if database is down or not configured properly, we won’t know until first client request comes to server.</p>
+
+<p>To handle these scenario, servlet API provides Listener interfaces that we can implement and configure to listen to an event and do certain operations.</p>
+
+<blockquote>
+  <p>Event is occurrence of something, in web application world. An event can be initialization of application, destroying an application, request from client, creating/destroying a session, attribute modification in session etc.</p>
+</blockquote>
+
+<h3 id="servlet-api">Servlet API</h3>
+<p>Servlet API provides different kind of listeners for different types of Events. Listener interfaces declare methods to work with a group of similar events. Every method in listener interface takes Event objects as input. Event objects works as a wrapper to provide specific object to the listeners.</p>
+
+<ul>
+  <li>Event Objects
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.AsyncEvent</code> – Event that gets fired when the asynchronous operation initiated on a ServletRequest (via a call to ServletRequest#startAsync or ServletRequest#startAsync(ServletRequest, ServletResponse)) has completed, timed out, or produced an error.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionBindingEvent</code> – Events of this type are either sent to an object that implements <code class="language-plaintext highlighter-rouge">HttpSessionBindingListener</code> when it is bound or unbound from a session, or to a <code class="language-plaintext highlighter-rouge">HttpSessionAttributeListener</code> that has been configured in the <code class="language-plaintext highlighter-rouge">web.xml</code> when any attribute is bound, unbound or replaced in a session.
+The session binds the object by a call to <code class="language-plaintext highlighter-rouge">HttpSession.setAttribute</code> and unbinds the object by a call to <code class="language-plaintext highlighter-rouge">HttpSession.removeAttribute</code>.
+We can use this event for cleanup activities when object is removed from session.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionEvent</code> – This is the class representing event notifications for changes to sessions within a web application.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletContextAttributeEvent</code> – Event class for notifications about changes to the attributes of the <code class="language-plaintext highlighter-rouge">ServletContext</code> of a web application.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletContextEvent</code> – This is the event class for notifications about changes to the servlet context of a web application.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletRequestEvent</code> – Events of this kind indicate lifecycle events for a ServletRequest. The source of the event is the ServletContext of this web application.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletRequestAttributeEvent</code> – This is the event class for notifications of changes to the attributes of the servlet request in an application.</li>
+    </ul>
+  </li>
+  <li>Listner Interfaces
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.AsyncListener</code> – Listener that will be notified in the event that an asynchronous operation initiated on a ServletRequest to which the listener had been added has completed, timed out, or resulted in an error.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletContextListener</code> – Interface for receiving notification events about <code class="language-plaintext highlighter-rouge">ServletContext</code> lifecycle changes.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletContextAttributeListener</code> – Interface for receiving notification events about ServletContext attribute changes.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletRequestListener</code> – Interface for receiving notification events about requests coming into and going out of scope of a web application.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.ServletRequestAttributeListener</code> – Interface for receiving notification events about ServletRequest attribute changes.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionListener</code> – Interface for receiving notification events about HttpSession lifecycle changes.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionBindingListener</code> – Causes an object to be notified when it is bound to or unbound from a session.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionAttributeListener</code> – Interface for receiving notification events about HttpSession attribute changes.</li>
+      <li><code class="language-plaintext highlighter-rouge">javax.servlet.http.HttpSessionActivationListener</code> – Objects that are bound to a session may listen to container events notifying them that sessions will be passivated and that session will be activated. A container that migrates session between VMs or persists sessions is required to notify all attributes bound to sessions implementing <code class="language-plaintext highlighter-rouge">HttpSessionActivationListener</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="servlet-listener-configuration">Servlet Listener Configuration</h2>
+<p>We can use @WebListener annotation to declare a class as Listener, however the class should implement one or more of the Listener interfaces.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;listener&gt;
+    &lt;listener-class&gt;
+    com.journaldev.listener.AppContextListener
+    &lt;/listener-class&gt;
+&lt;/listener&gt;
+</code></pre></div></div>
+
+:ET

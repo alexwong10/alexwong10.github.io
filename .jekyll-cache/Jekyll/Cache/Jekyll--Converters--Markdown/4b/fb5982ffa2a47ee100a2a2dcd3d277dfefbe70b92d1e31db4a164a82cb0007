@@ -1,0 +1,50 @@
+I"a<h3 id="面向对象">面向对象</h3>
+<p>类内存原理</p>
+<ul>
+  <li>对象在堆内存中</li>
+  <li>成员变量存储在各自的内存区域中，</li>
+  <li>成员方法多个对象共用一份</li>
+</ul>
+
+<p>成员变量 vs 局部变量</p>
+<ul>
+  <li>类中位置不同</li>
+  <li>内存中位置不同</li>
+  <li>生命周期不同</li>
+  <li>初始化值不同</li>
+</ul>
+
+<p>this</p>
+<ul>
+  <li>避免同名形参把成员变量shadow掉
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void setAge(int age) {
+  this.age = age;
+}
+</code></pre></div>    </div>
+  </li>
+  <li>内存原理：this在栈中将指向成员方法的调用者在堆中的地址（引用）</li>
+</ul>
+
+<p>构造方法：如果没有定义构造方法，系统将给出一个默认的无参数构造方法；如果定义了构造方法，系统将不再提供默认的构造
+方法</p>
+
+<p>分类思想：分工协作，专人干专事</p>
+
+<p>分包思想：不同功能的类文件,可以放在不同的包下进行管理</p>
+
+<p>三大特性</p>
+<ul>
+  <li>多态</li>
+  <li>封装</li>
+  <li>继承</li>
+</ul>
+
+<p>static</p>
+<ul>
+  <li>被类的所有对象共享</li>
+  <li>随着类的加载而加载，优先于对象存在</li>
+  <li>可以通过类名调用，也可以通过对象名调用</li>
+</ul>
+
+<p>###</p>
+:ET

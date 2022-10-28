@@ -1,0 +1,95 @@
+I"�<h2 id="why-html">Why HTML?</h2>
+<p>HTML stands for Hyper Text Markup Language.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hypertext refers to the way in which Web pages (HTML documents) are linked together. Thus, the link available on a webpage is called Hypertext.
+
+Markup means you use HTML to simply "mark-up" a text document with tags that tell a Web browser how to structure it to display.
+</code></pre></div></div>
+
+<p>It was originally developed with the intent of defining the structure of documents like headings, paragraphs, lists, and so forth to facilitate the sharing of scientific information between researchers. Now, HTML is being widely used to format web pages with the help of different tags available in HTML language.</p>
+
+<p>HTML is a MUST for students and working professionals to become a great Software Engineer specially when they are working in Web Development Domain. Here are some of the key advantages of learning HTML:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Create Web site - You can create a website or customize an existing web template if you know HTML well.
+
+Become a web designer - If you want to start a carrer as a professional web designer, HTML and CSS designing is a must skill.
+
+Understand web - If you want to optimize your website, to boost its speed and performance, it is good to know HTML to yield best results.
+
+Learn other languages - Once you understands the basic of HTML then other related technologies like javascript, php, or angular are become easier to understand.
+</code></pre></div></div>
+
+<h2 id="html-basics">HTML Basics</h2>
+<h3 id="tags">Tags</h3>
+
+<p>As a markup language, HTML makes use of various tags to format the content. These tags are enclosed within angle braces <code class="language-plaintext highlighter-rouge">&lt;Tag Name&gt;</code>. Except few tags, most of the tags have their corresponding closing tags. For example, <code class="language-plaintext highlighter-rouge">&lt;html&gt;</code> has its closing tag &lt;/html&gt;```. Learning HTML is simple as users have to learn the usage of different tags in order to format the text or images to make a beautiful webpage. These tags and their contents are <em>elements</em>, which are organized as a typical document structure below</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+
+   <span class="nt">&lt;head&gt;</span>
+      Document header related tags
+   <span class="nt">&lt;/head&gt;</span>
+   
+   <span class="nt">&lt;body&gt;</span>
+      Document body related tags
+   <span class="nt">&lt;/body&gt;</span>
+   
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Here are some basic tag examples.</p>
+<ul>
+  <li>heading</li>
+  <li>paragraph</li>
+  <li>line break</li>
+  <li>center</li>
+  <li>horizontal line</li>
+  <li>preserve formatting</li>
+  <li>nonbreaking spaces</li>
+</ul>
+
+<h3 id="elements">Elements</h3>
+<p>An HTML element is defined by a starting tag. An attribute is used to define the characteristics of an HTML element and is placed inside the element’s opening tag. We use a name-value pair to represent attributes. There are four core attributes <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">class</code>, <code class="language-plaintext highlighter-rouge">title</code> and <code class="language-plaintext highlighter-rouge">style</code> as well as  three internationalization (global)attributes <code class="language-plaintext highlighter-rouge">dir</code>, <code class="language-plaintext highlighter-rouge">lang</code> and <code class="language-plaintext highlighter-rouge">xml:lang</code>.</p>
+
+<h2 id="why-css">Why CSS</h2>
+<p>CSS (Cascading Style Sheet) is used to control the style of a web document in a simple and easy way.</p>
+
+<p>It is one of the most widely used style language over the web, because:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CSS saves time - You can write CSS once and then reuse same sheet in multiple HTML pages. You can define a style for each HTML element and apply it to as many Web pages as you want.
+
+Pages load faster - If you are using CSS, you do not need to write HTML tag attributes every time. Just write one CSS rule of a tag and apply it to all the occurrences of that tag. So less code means faster download times.
+
+Easy maintenance - To make a global change, simply change the style, and all elements in all the web pages will be updated automatically.
+
+Superior styles to HTML - CSS has a much wider array of attributes than HTML, so you can give a far better look to your HTML page in comparison to HTML attributes.
+
+Multiple Device Compatibility - Style sheets allow content to be optimized for more than one type of device. By using the same HTML document, different versions of a website can be presented for handheld devices such as PDAs and cell phones or for printing.
+
+Global web standards - Now HTML attributes are being deprecated and it is being recommended to use CSS. So its a good idea to start using CSS in all the HTML pages to make them compatible to future browsers.
+</code></pre></div></div>
+
+<p>Most commonly, CSS is combined with the markup languages HTML or XHTML.</p>
+
+<h2 id="css-basics">CSS Basics</h2>
+<p>A CSS comprises of style rules that are interpreted by the browser and then applied to the corresponding elements in your document. A style rule is made of three parts −</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Selector − A selector is an HTML tag at which a style will be applied. This could be any tag like &lt;h1&gt; or &lt;table&gt; etc.
+
+Property − A property is a type of attribute of HTML tag. Put simply, all the HTML attributes are converted into CSS properties. They could be color, border etc.
+
+Value − Values are assigned to properties. For example, color property can have value either red or #F1F1F1 etc.
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>selector { property: value }
+</code></pre></div></div>
+
+<p>There are four ways to associate styles with your HTML document. Most commonly used methods are inline CSS and External CSS.</p>
+<ul>
+  <li>embedded</li>
+  <li>inline</li>
+  <li>external</li>
+  <li>imported</li>
+</ul>
+
+:ET

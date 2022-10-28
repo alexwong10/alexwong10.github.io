@@ -1,0 +1,21 @@
+I"�<p>目的：允许嵌套jar。提供三种类启动器JarLauncher, WarLauncher, PropertiesLauncher</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>archive.jar
+ |
+ +-META-INF（1）
+ |  +-MANIFEST.MF
+ +-org（2）Spring boot loader本身需要的类放置处
+ |  +-springframework
+ |     +-boot
+ |        +-loader
+ |           +-&lt;spring boot loader classes&gt;
+ +-com（3）应用本身的文件放置处
+ |  +-mycompany
+ |     + project
+ |        +-YouClasses.class
+ +-lib（4）应用依赖的jar目录
+    +-dependency1.jar
+    +-dependency2.jar
+</code></pre></div></div>
+
+<p>加载过程：</p>
+:ET

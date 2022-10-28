@@ -1,0 +1,19 @@
+I"¬<blockquote>
+  <p>TL;DR: config network card file</p>
+</blockquote>
+
+<p>I met this problem when I installed minimal version of CentOS 7.9 on virtualbox. It results from the default minimal setting which turns off the network card service. Therefore, we just need to reconfig the network card setting.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># check network card info
+ip addr
+
+# check corresponding network card file
+cd /etc/sysconfig/network-scripts/
+
+# modify network card file, change ONBOOT=no to ONBOOT=yes
+sudo vi [NETWORK CARD FILE]
+
+# restart network service
+service network restart 
+</code></pre></div></div>
+:ET

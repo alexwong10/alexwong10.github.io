@@ -1,0 +1,66 @@
+I"�<p>VueJS is a progressive JavaScript framework used to develop interactive web interfaces. Focus is more on the view part, which is the front end. It is very easy to integrate with other projects and libraries.</p>
+
+<h2 id="example">Example</h2>
+<p>We first include vue at head
+<code class="language-plaintext highlighter-rouge">&lt;script type = "text/javascript" src = "js/vue.js"&gt;&lt;/script&gt;</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+   <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;title&gt;</span>VueJs Introduction<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;script </span><span class="na">type = </span><span class="s">"text/javascript"</span> <span class="na">src = </span><span class="s">"js/vue.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;/head&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">id = </span><span class="s">"intro"</span> <span class="na">style = </span><span class="s">"text-align:center;"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;h1&gt;&lt;/h1&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;script </span><span class="na">type = </span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+         <span class="kd">var</span> <span class="nx">vue_det</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#intro</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+               <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My first VueJS Task</span><span class="dl">'</span>
+            <span class="p">}</span>
+         <span class="p">});</span>
+      <span class="nt">&lt;/script&gt;</span>
+   <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>There is a div which is added in the body that prints “My first VueJS Task” in the browser.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id = </span><span class="s">"intro"</span> <span class="na">style = </span><span class="s">"text-align:center;"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;h1&gt;&lt;/h1&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+<p>We have also added a message in an interpolation, i.e. . This interacts with VueJS and prints the data in the browser. To get the value of the message in the DOM, we are creating an instance of vuejs as follows.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var vue_det = new Vue({
+   el: '#intro',
+   data: {
+      message: 'My first VueJS Task'
+   }
+})
+</code></pre></div></div>
+
+<p>In the above code snippet, we are calling Vue instance, which takes the id of the DOM element i.e. el:’#intro’. There is data with the message which is assigned the value ‘My first VueJS Task’. VueJS interacts with DOM and changes the value in the DOM  with ’My first VueJS Task’.</p>
+
+<h2 id="instance">Instance</h2>
+<p>To start with VueJS, we need to create the instance of Vue, which is called the root Vue Instance.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var app = new Vue({
+   // options
+})
+</code></pre></div></div>
+
+<p>There are three parts of the Vue constructor。</p>
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">el</code>: It takes the id of the DOM element present in <code class="language-plaintext highlighter-rouge">.html</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">data</code>: It can be an object or a function. Vue converts its properties to getters/setters to make it reactive.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">methods</code>:  Methods are to be included with the Vue instance as shown in the following code. We can access the function using the Vue object.</p>
+  </li>
+</ul>
+
+:ET

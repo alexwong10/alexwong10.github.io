@@ -1,0 +1,40 @@
+I"�
+<blockquote>
+  <p>TL;DR:</p>
+</blockquote>
+
+<p>Java Web Application is used to create dynamic websites. Java provides support for web application through Servlets and JSPs. We can create a website with static HTML pages but when we want information to be dynamic, we need web application.</p>
+
+<h2 id="basics">Basics</h2>
+<h3 id="web-server-and-client">Web Server and Client</h3>
+<p>Web server is a software that can process the client request and send the response back to the client.</p>
+
+<p>Web client is a software that helps in communicating with the server.</p>
+<h3 id="html-and-http">HTML and HTTP</h3>
+<h3 id="url">URL</h3>
+<p>URL (Universal Resource Locator) is used to locate the server and resource. 
+An example like:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://localhost:8080/FirstServletProject/jsps/hello.jsp
+</code></pre></div></div>
+
+<h2 id="why-servlet-and-jsps">Why Servlet and JSPs?</h2>
+<p>Web servers don’t know how to generate dynamic content or how to save data into databases.</p>
+
+<p>Java Servlets and JSPs are server-side technologies to extend the capability of web servers by providing support for dynamic response and data persistence.</p>
+
+<h2 id="web-container">Web container</h2>
+<p>When web container gets the request and if it’s for servlet then container creates two Objects HTTPServletRequest and HTTPServletResponse. Then it finds the correct servlet based on the URL and creates a thread for the request. Then it invokes the servlet service() method and based on the HTTP method service() method invokes doGet() or doPost() methods. Servlet methods generate the dynamic page and write it to the response. Once servlet thread is complete, the container converts the response to HTTP response and send it back to the client.</p>
+
+<p>Work done by web containers:</p>
+<ul>
+  <li><strong>Communication support</strong> provides easy way of communication between web server and the servlets and JSPs.</li>
+  <li><strong>Lifecycle and Resource Management</strong> takes care of loading the servlets into memory, initializing servlets, invoking servlet methods and destroying them.</li>
+  <li><strong>Multithreading Support</strong> creates a new thread for every request to the servlet and when it’s processed the thread dies.</li>
+  <li><strong>JSP Support</strong> Every JSP in the application is compiled by container and converted to servlet, and managed like other servlets.</li>
+  <li><strong>Miscellaneous Task</strong></li>
+</ul>
+
+<h2 id="web-application-directory-structure">Web Application Directory Structure</h2>
+
+<center><img src="./assets/img/posts/20220712/WAR-directory-structure.png" /></center>
+:ET

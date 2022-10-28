@@ -1,0 +1,48 @@
+I"­<h2 id="overview">Overview</h2>
+<p>XML stands for Extensible Markup Language. It is a text-based markup language derived from Standard Generalized Markup Language (SGML).</p>
+
+<p>XML tags identify the data and are used to store and organize the data, rather than specifying how to display it like HTML tags, which are used to display the data. XML is not going to replace HTML in the near future, but it introduces new possibilities by adopting many successful features of HTML.</p>
+
+<h2 id="syntax">Syntax</h2>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version = "1.0"?&gt;</span>
+<span class="nt">&lt;contact-info&gt;</span>
+   <span class="nt">&lt;name&gt;</span>Tanmay Patil<span class="nt">&lt;/name&gt;</span>
+   <span class="nt">&lt;company&gt;</span>TutorialsPoint<span class="nt">&lt;/company&gt;</span>
+   <span class="nt">&lt;phone&gt;</span>(011) 123-4567<span class="nt">&lt;/phone&gt;</span>
+<span class="nt">&lt;/contact-info&gt;</span>
+</code></pre></div></div>
+
+<h3 id="declaration">declaration</h3>
+<h3 id="tags-and-elements">tags and elements</h3>
+<h3 id="attributes">attributes</h3>
+<h3 id="references">references</h3>
+<h3 id="text">text</h3>
+
+<h2 id="dom-and-xml-parsing">DOM and XML Parsing</h2>
+<p>The <strong>D</strong>ocument <strong>O</strong>bject <strong>M</strong>odel (DOM) is the foundation of XML. XML documents have a hierarchy of informational units called nodes; DOM is a way of describing those nodes and the relationships between them.</p>
+
+<p>A DOM document is a collection of nodes or pieces of information organized in a hierarchy. This hierarchy allows a developer to navigate through the tree looking for specific information. Because it is based on a hierarchy of information, the DOM is said to be tree based.</p>
+
+<h2 id="dtd">DTD</h2>
+<p>The XML <strong>D</strong>ocument <strong>T</strong>ype <strong>D</strong>eclaration, commonly known as DTD, is a way to describe XML language precisely. DTDs check vocabulary and validity of the structure of XML documents against grammatical rules of appropriate XML language.</p>
+
+<p>An XML DTD can be either specified inside the document, or it can be kept in a separate document and then liked separately.</p>
+
+<h3 id="syntax-1">Syntax</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!ElEMENT&gt;
+&lt;!ATTLIST&gt;
+</code></pre></div></div>
+
+<h3 id="internal">Internal</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!DOCTYPE root-element [element-declarations]&gt;
+</code></pre></div></div>
+
+<h3 id="external">External</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!DOCTYPE root-element SYSTEM "file-name"&gt;
+</code></pre></div></div>
+
+<h2 id="schemas">Schemas</h2>
+<p>XML Schema is commonly known as XML Schema Definition (XSD). It is used to describe and validate the structure and the content of XML data. XML schema defines the elements, attributes and data types. Schema element supports Namespaces. It is similar to a database schema that describes the data in a database.</p>
+
+:ET

@@ -1,0 +1,87 @@
+I"7!<p>Spring Boot is an open source Java-based framework used to create a Micro Service. It is developed by Pivotal Team. It is easy to create a stand-alone and production ready spring applications using Spring Boot. Spring Boot contains a comprehensive infrastructure support for developing a micro service and enables you to develop enterprise-ready applications that you can “just run”.</p>
+
+<blockquote>
+  <p>Micro Service is an architecture that allows the developers to develop and deploy services independently. Each service running has its own process and this achieves the lightweight model to support business applications.</p>
+</blockquote>
+
+<h2 id="why-spring-boot">Why Spring Boot?</h2>
+<p>You can choose Spring Boot because of the features and benefits it offers as given here.</p>
+<ul>
+  <li>It provides a flexible way to configure Java Beans, XML configurations, and Database Transactions.</li>
+  <li>It provides a powerful batch processing and manages REST endpoints.</li>
+  <li>In Spring Boot, everything is auto configured; no manual configurations are needed.</li>
+  <li>It offers annotation-based spring application</li>
+  <li>Eases dependency management</li>
+  <li>It includes Embedded Servlet Container</li>
+</ul>
+
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>Spring Boot automatically configures your application based on the dependencies you have added to the project by using <code class="language-plaintext highlighter-rouge">@EnableAutoConfiguration</code> annotation. For example, if MySQL database is on your classpath, but you have not configured any database connection, then Spring Boot auto-configures an in-memory database.</p>
+
+<p>The entry point of the spring boot application is the class contains <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> annotation and the main method.</p>
+
+<p>Spring Boot automatically scans all the components included in the project by using <code class="language-plaintext highlighter-rouge">@ComponentScan</code> annotation.</p>
+
+<h3 id="spring-boot-starters">Spring Boot Starters</h3>
+<p>All Spring Boot starters follow the same naming pattern <strong>spring-boot-starter- *</strong>, where * indicates that it is a type of the application.</p>
+
+<p>For example, Spring Boot Starter web dependency is used to write a Rest Endpoints. Its code is shown below −</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="auto-configuration">Auto Configuration</h3>
+<p>Spring Boot Auto Configuration automatically configures your Spring application based on the JAR dependencies you added in the project. For example, if MySQL database is on your class path, but you have not configured any database connection, then Spring Boot auto configures an in-memory database.</p>
+
+<p>For this purpose, you need to add <code class="language-plaintext highlighter-rouge">@EnableAutoConfiguration</code> annotation or <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> annotation to your main class file. Then, your Spring Boot application will be automatically configured.</p>
+
+<p>Observe the following code for a better understanding −</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span><span class="o">;</span>
+
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">DemoApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="spring-boot-application">Spring Boot Application</h3>
+
+<p>The entry point of the Spring Boot Application is the class contains <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> annotation. This class should have the main method to run the Spring Boot application. <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> annotation includes Auto Configuration, Component Scan, and Spring Boot Configuration.</p>
+
+<p>If you added <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> annotation to the class, you do not need to add the <code class="language-plaintext highlighter-rouge">@EnableAutoConfiguration</code>, <code class="language-plaintext highlighter-rouge">@ComponentScan</code> and <code class="language-plaintext highlighter-rouge">@SpringBootConfiguration</code> annotation. The @SpringBootApplication annotation includes all other annotations.</p>
+
+<p>Observe the following code for a better understanding −</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">DemoApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="component-scan">Component Scan</h3>
+
+<p>Spring Boot application scans all the beans and package declarations when the application initializes. You need to add the <code class="language-plaintext highlighter-rouge">@ComponentScan</code> annotation for your class file to scan your components added in your project.</p>
+
+<p>Observe the following code for a better understanding.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="o">;</span>
+
+<span class="nd">@ComponentScan</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">DemoApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+:ET

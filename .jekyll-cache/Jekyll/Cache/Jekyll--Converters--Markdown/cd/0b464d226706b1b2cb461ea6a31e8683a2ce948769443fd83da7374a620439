@@ -1,0 +1,49 @@
+I"�<p>Testing is the process of checking the functionality of an application to ensure it runs as per requirements. Unit testing comes into picture at the developers’ level; it is the testing of single entity (class or method). Unit testing plays a critical role in helping a software company deliver quality products to its customers.</p>
+
+<p>Unit testing can be done in two ways − manual testing and automated testing.</p>
+
+<h2 id="what-is-junit-">What is JUnit ?</h2>
+
+<p>JUnit is a unit testing framework for Java programming language. It plays a crucial role test-driven development, and is a family of unit testing frameworks collectively known as xUnit.</p>
+
+<p>JUnit promotes the idea of “first testing then coding”, which emphasizes on setting up the test data for a piece of code that can be tested first and then implemented. This approach is like “test a little, code a little, test a little, code a little.” It increases the productivity of the programmer and the stability of program code, which in turn reduces the stress on the programmer and the time spent on debugging.</p>
+
+<h2 id="what-is-a-unit-test-case-">What is a Unit Test Case ?</h2>
+
+<p>A Unit Test Case is a part of code, which ensures that another part of code (method) works as expected. To achieve the desired results quickly, a test framework is required. JUnit is a perfect unit test framework for Java programming language.</p>
+
+<p>A formal written unit test case is characterized by a known input and an expected output, which is worked out before the test is executed. The known input should test a precondition and the expected output should test a post-condition.</p>
+
+<p>There must be at least two unit test cases for each requirement − one positive test and one negative test. If a requirement has sub-requirements, each sub-requirement must have at least two test cases as positive and negative.</p>
+
+<h2 id="framework">Framework</h2>
+<p>JUnit is a <strong>Regression Testing Framework</strong> used by developers to implement unit testing in Java, and accelerate programming speed and increase the quality of code.</p>
+
+<h3 id="fixtures">Fixtures</h3>
+
+<p>Fixtures is a fixed state of a set of objects used as a baseline for running tests. The purpose of a test fixture is to ensure that there is a well-known and fixed environment in which tests are run so that results are repeatable. It includes −</p>
+
+<ul>
+  <li>setUp() method, which runs before every test invocation.</li>
+  <li>tearDown() method, which runs after every test method.</li>
+</ul>
+
+<h3 id="test-suites">Test Suites</h3>
+
+<p>A test suite bundles a few unit test cases and runs them together. In JUnit, both @RunWith and @Suite annotation are used to run the suite test.</p>
+
+<h3 id="test-runners">Test Runners</h3>
+
+<p>Test runner is used for executing the test cases.</p>
+
+<h3 id="junit-classes">JUnit Classes</h3>
+
+<p>JUnit classes are important classes, used in writing and testing JUnits. Some of the important classes are −</p>
+
+<ul>
+  <li>Assert − Contains a set of assert methods.</li>
+  <li>TestCase − Contains a test case that defines the fixture to run multiple tests.</li>
+  <li>TestResult − Contains methods to collect the results of executing a test case.</li>
+</ul>
+
+:ET

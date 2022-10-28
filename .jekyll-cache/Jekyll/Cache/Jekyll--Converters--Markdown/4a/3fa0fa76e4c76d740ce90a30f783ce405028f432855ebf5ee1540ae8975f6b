@@ -1,0 +1,43 @@
+I"�<blockquote>
+  <p>TL;DR: Install Guest Additions, set shared folder and mount it.</p>
+</blockquote>
+
+<h2 id="install-guest-additions">Install Guest Additions</h2>
+<p>VirtualBox Guest Additions are software which enable seamless integration between the host and guest systems. It provides features including mouse pointer integration, Drag’n’Drop functionality, shared clipboard, <strong>shared folders</strong> and more.</p>
+
+<p>Take CentOS as an example, we can install it via two methods. Before that, we first config the environment.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># enable EPEL repository
+$ yum -y install epel-release
+# update package
+$ yum -y update
+# install kernel headers, develper tools and other related packages
+$ yum install make gcc kernel-headers kernel-devel perl dkms bzip2
+# set KERN-DIR environment variable
+$ export KERN_DIR=/usr/src/kernels/$(uname -r)
+</code></pre></div></div>
+
+<h3 id="command">Command</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mount -r /dev/cdrom /media
+# cd /media/
+# ./VBoxLinuxAdditions.run 
+</code></pre></div></div>
+
+<h3 id="gui">GUI</h3>
+<p>Click on Devices-Insert Guest Additions CD Image. A dialog window will pop up, click on the Run to excute it.</p>
+
+<h2 id="set-shared-folder">Set shared folder</h2>
+<p>This process need GUI. If your system is minimal, GUI can be installed through following command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yum groupinstall "GNOME Desktop"        [On CentOS 7]
+$ yum groupinstall "Server with GUI"      [On RHEL 7]
+</code></pre></div></div>
+<p>Click on Devices-Shared Folders, set the folder you want to share with virtual machine and set its name.</p>
+
+<h2 id="mount-the-folder">Mount the folder</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mount -t vboxsf [HOST_SHARED_FOLDER_NAME] [VIRTUAL]
+</code></pre></div></div>
+
+<p>Reference
+[1]https://www.tecmint.com/install-virtualbox-guest-additions-in-centos-rhel-fedora/
+[2]https://www.tecmint.com/install-gui-in-rhel-centos-7/</p>
+:ET
