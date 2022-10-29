@@ -1,17 +1,16 @@
 ---
 layout: post
-show_date: true
 title: "Philosophy of binary representation: finite bits VS infinite information"
 date: 2022-06-20
-categories: computer science
-img: posts/20220620/zero-one.png
+categories: coding
+header-img: "img/posts/20220620/zero-one.png"
 tags: [15-213]
-author: cheungwong
-Description: "It is widely know that data are encoded as 0-1 representation in comupter science due to its electronic implementation. But what is the behind it? In my opinion, the represention is a typical example of ubiquitous fight between finiteness and infiniteness in computer science."
+author: Cheung Wong
+mathjax: true
 ---
 
 ## TL;DR: Bits are not everything. Everything can be bits. 
-
+It is widely know that data are encoded as 0-1 representation in comupter science due to its electronic implementation. But what is the behind it? In my opinion, the represention is a typical example of ubiquitous fight between finiteness and infiniteness in computer science.
 > All information in a system—including disk files, programs stored in memory, user data stored in memory, and data transferred across a network—is represented as a bunch of bits. The only thing that distinguishes different data objects is the context in which we view them. 
 
 ### Bit: binary unit
