@@ -1,12 +1,10 @@
 ---
 layout: post
-show_date: true
 title: "Quickstart: How to write blogs on GitHub"
 date: 2022-06-06
 categories: coding
-img: posts/20220606/ukiyoe-sample.jpg
 tags: [tutorial]
-author: cheungwong
+author: Cheung Wong
 Description: "Have you ever tried to build your own website and share your what you learn with others? Github provides a foolproof way to do that."
 ---
 
@@ -30,7 +28,7 @@ Besides, we can rewrite the README.md as we like, which will be the introduction
 
 The main types of content for Jekyll sites are pages and posts. 
 
-<center><img src='./assets/img/posts/20220606/webrick-error.png'></center>
+![img](/img/posts/20220606/webrick-error.png)
 
 #### Pages
 A page is for standalone content that isn't associated with a specific date, such as an "About" page. We can add following YAML frontmatter to the top of the file so that it can be published on ```https://USERNAME.github.io/URL-PATH```
@@ -62,7 +60,7 @@ First, we need to configure local environment.
 >Jekyll is a **static site generator** with built-in support for GitHub Pages and a simplified build process. Jekyll takes Markdown and HTML files and creates a complete static website based on your choice of layouts.
 
 #### Here we go
-Through command ```bundle exec jekyll serve```, we can build our blog in default on 127.0.0.0:4000. Now let's dive into our folder and explore the structrue and important configuration file of our websites.
+Many provided Jekyll theme can be found in Github. We can also build the website demo directly by forking those repositories. Through command ```bundle exec jekyll serve```, we can build our blog in default on 127.0.0.0:4000. Now let's dive into our folder and explore the structrue and important configuration file of our websites. Take [MVM](https://github.com/the-mvm/the-mvm.github.io) theme as an example,
 
 - ```_includes```: Similar to header files we include in C++. But here, we include them to build a web page.
 - ```_layouts```: Defines different styles for us to arrange how a page looks like.
