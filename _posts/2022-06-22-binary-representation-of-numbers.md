@@ -1,15 +1,15 @@
 ---
 layout: post
-show_date: true
 title: "Binary Representation of Numbers in Computer Science"
 date: 2022-06-22
-categories: computer science
-img: posts/20220620/zero-one.png
+categories: coding
+header-img: "img/posts/20220620/zero-one.png"
 tags: [15-213]
-author: cheungwong
-Description: "How infinite numbers are represented under limitation of finite bits? In this blog, we focus on representations of integers and floating point numbers."
+author: Cheung Wong
+mathjax: true
 ---
 
+How infinite numbers are represented under limitation of finite bits? In this blog, we focus on representations of integers and floating point numbers.
 
 ### Integers
 Above is the philosophy of the binary representation. Now we look further into specific representation of integers. C/C++ standards provide two different ways: one for nonnegative numbers (unsigned encodings), the other for negative, zero, and positive numbers (signed encodings).
@@ -21,7 +21,6 @@ Therefore in signed encodings, we interpret the value as $-x_{w-1}2^{w-1} + \sum
 _Twos' complement encodings_.
 
 It comes to us naturaly that whether there are other encodings to represent signed numbers. The answer is of course yes. Remember, we can interpret a sequence in any way. We can enfranchise one bit any meaning we want. For example, in so-called _Ones' comlement encodings_, MSB's weight is $-(2^{w-1} - 1)$ and the value is calculated as $-x_{w-1}(2^{w-1}-1) + \sum_{i=0}^{w-2} x_i2^i$. It has the range of $[-2^{w-1} - 1, 2^{w-1} - 1]$. Is it still a bijection? No, because zero can be represented as $000...000$ or $111...111$ in this way. 
-
 
 
 ### Floating point Numbers

@@ -8,7 +8,7 @@ author: Cheung Wong
 Description: "Have you ever tried to build your own website and share your what you learn with others? Github provides a foolproof way to do that."
 ---
 
-> TL;DR: follow [the official guide](https://docs.github.com/en/pages/quickstart).
+## TL;DR: follow [the official guide](https://docs.github.com/en/pages/quickstart).
 
 Here we introduce a terse version, in three steps.
 
