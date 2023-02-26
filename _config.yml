@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: cheungwong33@outlook.com
 description: "He felt very young, at the same time unspeakably aged."
 keyword: "blog, coding, full-stack, backend, reading, football, origami, cheung wong, kuriboh, 黄祥"
-url: "https://cheungwong.github.io" # your host, for absolute URL
+url: "https://alexwong.github.io" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
@@ -13,7 +13,7 @@ future: true
 
 # SNS settings
 RSS: false
-github_username: cheungwong
+github_username: alexwong10
 #twitter_username: huxpro
 #facebook_username:  huxpro
 linkedin_username:  cheungwong
