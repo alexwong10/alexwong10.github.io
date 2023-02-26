@@ -1,6 +1,6 @@
 ## Yet another blog
 
-Cheung Wong (in Cantonese, pronounced as Xiang HUANG in Mandarian) is studying in Nanjing University. His research interests are natural language processing, software engineering and AI's fairness.
+Alex Wong (Chueng Wong in Cantonese, Xiang HUANG in Mandarian) is studying in Nanjing University. His research interests are natural language processing, software engineering and AI's fairness.
 
 This blog is not a typical programmer's blog. It serves as a record of his normal life. Mainly three topics will be covered.
 
