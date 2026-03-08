@@ -1,0 +1,17 @@
+<!-- Author Card - Reusable Component -->
+<div
+    style="background: #f0f6fa; padding: 1.2rem; border-radius: 8px; border-left: 4px solid #2b88d9; width: fit-content;">
+    <div style="text-align: left; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+            <h3 style="font-size: 1.05rem; color: #1a3a52; margin: 0;">Alex Wong</h3>
+            <a href="https://github.com/alexwong10" target="_blank" rel="noopener"
+                style="display: inline-flex; color: #2b88d9; text-decoration: none; font-size: 1.05rem;" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p style="color: #2c5282; font-size: 0.8rem; margin: 0;">{{ include.title }}</p>
+    </div>
+    <p style="color: #4a5568; font-size: 0.8rem; line-height: 1.5; margin: 0;">
+        {{ include.bio }}
+    </p>
+</div>

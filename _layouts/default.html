@@ -1,23 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% include head.html %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="{{ site.description }}">
+    <meta name="keywords" content="{{ site.keyword }}">
+    <meta name="theme-color" content="#ffffff">
 
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
+    <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
 
-    {% include nav.html %}
-    {% include search.html %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
 
-    {{ content }}
+    <!-- Minimal CSS -->
+    <link rel="stylesheet" href="{{ " /css/minimal.css" | prepend: site.baseurl }}">
 
-    {% include footer.html %}
+    <!-- Font Awesome -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" type="text/css">
 
+    <!-- MathJax -->
+    {% if page.mathjax %}
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    {% endif %}
 
-<!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
+    <!-- Language Toggle Script -->
+    <script src="{{ " /js/language.js" | prepend: site.baseurl }}"></script>
+</head>
 
+<body>
+    <header class="site-header">
+        <nav>
+            <h1 class="site-title">
+                <a href="{{ " /" | prepend: site.baseurl }}">{{ site.title }}</a>
+            </h1>
+            <div style="display: flex; align-items: baseline; gap: 2rem;">
+                <ul class="site-nav">
+                    <li><a href="{{ " /" | prepend: site.baseurl }}" data-lang="zh">首页</a><a href="{{ " /" | prepend:
+                            site.baseurl }}" data-lang="en" style="display: none;">Home</a></li>
+                    <li><a href="{{ " /articles.html" | prepend: site.baseurl }}" data-lang="zh">文章</a><a href="{{ "
+                            /articles.html" | prepend: site.baseurl }}" data-lang="en"
+                            style="display: none;">Articles</a></li>
+                    <li><a href="{{ " /about.html" | prepend: site.baseurl }}" data-lang="zh">关于</a><a href="{{ "
+                            /about.html" | prepend: site.baseurl }}" data-lang="en" style="display: none;">About</a>
+                    </li>
+                </ul>
+                <button id="lang-toggle-btn" onclick="toggleSiteLanguage()"
+                    style="background: transparent; border: none; color: #2b88d9; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; padding: 0; margin: 0; line-height: 1.4; display: inline; vertical-align: baseline;"
+                    onmouseover="this.style.opacity='0.7';" onmouseout="this.style.opacity='1';">English</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

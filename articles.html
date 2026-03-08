@@ -1,0 +1,102 @@
+---
+layout: default
+title: "Articles"
+description: "所有文章"
+permalink: /articles.html
+---
+
+<div class="container">
+    <!-- Chinese Version -->
+    <div data-lang="zh">
+        <h1
+            style="font-size: 2.2rem; color: #1a3a52; margin: 2rem 0 2.5rem; border-bottom: 3px solid #2b88d9; padding-bottom: 1rem;">
+            所有文章</h1>
+
+        {% assign posts = site.posts | sort: 'date' | reverse %}
+        {% if posts.size > 0 %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+            {% for post in posts %}
+            {% if post.lang == 'zh' or post.lang == nil %}
+            <article
+                style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9; transition: all 0.3s; cursor: pointer;"
+                onmouseover="this.style.boxShadow='0 4px 12px rgba(43, 136, 217, 0.15)'; this.style.transform='translateY(-2px)';"
+                onmouseout="this.style.boxShadow='none'; this.style.transform='none';">
+                <a href="{{ post.url | prepend: site.baseurl }}" style="text-decoration: none; color: inherit;">
+                    <h2 style="font-size: 1.25rem; color: #1a3a52; margin-bottom: 0.75rem; line-height: 1.4;">{{
+                        post.title }}</h2>
+                    <div style="color: #7a8da0; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: #2b88d9;"></i>
+                        {{ post.date | date: "%Y年%m月%d日" }}
+                    </div>
+                    <p style="color: #4a5568; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                        {{ post.excerpt | strip_html | truncate:120 }}
+                    </p>
+                    {% if post.tags %}
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        {% for tag in post.tags %}
+                        <span
+                            style="display: inline-block; background: white; color: #2b88d9; padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid #c0d9f0;">{{
+                            tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </a>
+            </article>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 4rem 2rem; color: #999;">
+            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; color: #c0d9f0;"></i>
+            <p style="font-size: 1.1rem;">暂无文章</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- English Version -->
+    <div data-lang="en" style="display: none;">
+        <h1
+            style="font-size: 2.2rem; color: #1a3a52; margin: 2rem 0 2.5rem; border-bottom: 3px solid #2b88d9; padding-bottom: 1rem;">
+            All Articles</h1>
+
+        {% assign posts = site.posts | sort: 'date' | reverse %}
+        {% if posts.size > 0 %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+            {% for post in posts %}
+            {% if post.lang == 'en' %}
+            <article
+                style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9; transition: all 0.3s; cursor: pointer;"
+                onmouseover="this.style.boxShadow='0 4px 12px rgba(43, 136, 217, 0.15)'; this.style.transform='translateY(-2px)';"
+                onmouseout="this.style.boxShadow='none'; this.style.transform='none';">
+                <a href="{{ post.url | prepend: site.baseurl }}" style="text-decoration: none; color: inherit;">
+                    <h2 style="font-size: 1.25rem; color: #1a3a52; margin-bottom: 0.75rem; line-height: 1.4;">{{
+                        post.title }}</h2>
+                    <div style="color: #7a8da0; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: #2b88d9;"></i>
+                        {{ post.date | date: "%B %d, %Y" }}
+                    </div>
+                    <p style="color: #4a5568; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                        {{ post.excerpt | strip_html | truncate:120 }}
+                    </p>
+                    {% if post.tags %}
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        {% for tag in post.tags %}
+                        <span
+                            style="display: inline-block; background: white; color: #2b88d9; padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid #c0d9f0;">{{
+                            tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </a>
+            </article>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 4rem 2rem; color: #999;">
+            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; color: #c0d9f0;"></i>
+            <p style="font-size: 1.1rem;">No articles yet</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

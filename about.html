@@ -1,48 +1,142 @@
 ---
-layout: page
+layout: default
 title: "About"
-description: "「人既是人有责任有自由决定远景。」"
-header-img: "img/Inume-Touge.jpg"
-header-mask: 0.3
-multilingual: true
+description: "关于我"
+permalink: /about.html
 ---
 
-{% include multilingual-sel.html %}
+<div class="container">
+    <!-- Chinese Version -->
+    <div data-lang="zh" style="margin-top: 2rem;">
+        <!-- Intro -->
+        <div>
+            <h1 style="font-size: 2.2rem; color: #1a3a52; margin-bottom: 1rem; line-height: 1.2;">
+                关于我
+                <a href="https://github.com/alexwong10" target="_blank" rel="noopener"
+                    style="display: inline-block; color: #2b88d9; text-decoration: none; font-size: 1.2rem; margin-left: 0.5rem;"
+                    title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </h1>
+            <p style="color: #4a5568; font-size: 1rem; line-height: 1.8; margin: 0;">
+                目前，我在一家通信公司从事Linux开发。
+            </p>
+        </div>
 
-<!-- Chinese Version -->
-<div class="zh post-container">
-    {% capture about_zh %}{% include about/zh.md %}{% endcapture %}
-    {{ about_zh | markdownify }}
-</div>
+        <!-- Skills Section -->
+        <section style="margin-top: 2rem;">
+            <h2 style="font-size: 1.6rem; color: #1a3a52; margin-bottom: 1.5rem;">技能与经验</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <!-- Card 1: Programming Languages -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">编程语言</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>C / C++ / Python</li>
+                        <li>Linux 系统编程</li>
+                        <li>Shell / 脚本开发</li>
+                        <li>Redis / SQLite</li>
+                    </ul>
+                </div>
+                <!-- Card 2: Core Areas -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">核心领域</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>网络软件开发</li>
+                        <li>安全认证</li>
+                        <li>自然语言处理</li>
+                        <li>性能优化</li>
+                    </ul>
+                </div>
+                <!-- Card 3: Other Skills -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">其他技能</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>算法和数据结构</li>
+                        <li>Agent开发</li>
+                        <li>推理框架</li>
+                        <li>Git版本控制</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-<!-- English Version -->
-<div class="en post-container">
-    {% capture about_en %}{% include about/en.md %}{% endcapture %}
-    {{ about_en | markdownify }}
-</div>
+        <!-- Responsive mobile layout -->
+        <style>
+            @media (max-width: 768px) {
+                div[style*="grid-template-columns: repeat(3, 1fr)"] {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+        </style>
+    </div>
 
+    <!-- English Version -->
+    <div data-lang="en" style="display: none; margin-top: 2rem;">
+        <!-- Intro -->
+        <div>
+            <h1 style="font-size: 2.2rem; color: #1a3a52; margin-bottom: 1rem; line-height: 1.2;">
+                About Me
+                <a href="https://github.com/alexwong10" target="_blank" rel="noopener"
+                    style="display: inline-block; color: #2b88d9; text-decoration: none; font-size: 1.2rem; margin-left: 0.5rem;"
+                    title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </h1>
+            <p style="color: #4a5568; font-size: 1rem; line-height: 1.8; margin: 0;">
+                Currently, I work as a Linux developer at a telecommunications company.
+            </p>
+        </div>
 
-{% if site.disqus_username %}
-<!-- disqus 评论框 start -->
-<div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
+        <!-- Skills Section -->
+        <section style="margin-top: 2rem;">
+            <h2 style="font-size: 1.6rem; color: #1a3a52; margin-bottom: 1.5rem;">Skills & Experience</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <!-- Card 1: Programming Languages -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">Programming Languages</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>C / C++ / Python</li>
+                        <li>Linux System Programming</li>
+                        <li>Shell / Script Development</li>
+                        <li>Redis / SQLite</li>
+                    </ul>
+                </div>
+                <!-- Card 2: Core Areas -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">Core Areas</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>Network Software Development</li>
+                        <li>Security Authentication</li>
+                        <li>Natural Language Processing</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+                <!-- Card 3: Other Skills -->
+                <div style="background: #f0f6fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2b88d9;">
+                    <h3 style="color: #2b88d9; font-size: 1.05rem; margin-bottom: 1rem; margin-top: 0;">Other Skills</h3>
+                    <ul
+                        style="list-style: none; color: #4a5568; line-height: 1.8; font-size: 0.9rem; margin: 0; padding: 0;">
+                        <li>Algorithms & Data Structures</li>
+                        <li>Agent Development</li>
+                        <li>Inference Framework</li>
+                        <li>Git Version Control</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
+        <!-- Responsive mobile layout -->
+        <style>
+            @media (max-width: 768px) {
+                div[style*="grid-template-columns: repeat(3, 1fr)"] {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+        </style>
     </div>
 </div>
-<!-- disqus 评论框 end -->
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus_username}}";
-    var disqus_identifier = "{{site.disqus_username}}/{{page.url}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
-
-    (function () {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-{% endif %}
