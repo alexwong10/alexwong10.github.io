@@ -6,9 +6,11 @@ description: "个人博客 - 技术分享与思考"
 <!-- Chinese Version -->
 <div class="container" data-lang="zh">
     <!-- Personal Introduction -->
-    <section
-        style="margin-top: 3rem; margin-bottom: 3rem; padding: 2.5rem; background: linear-gradient(135deg, #f0f6fa 0%, #ffffff 100%); border-radius: 8px; border-left: 5px solid #2b88d9;">
-        <h2 style="font-size: 1.8rem; color: #1a3a52; margin-bottom: 1.5rem; font-weight: 600;">Hi, 我是 Alex</h2>
+    <section class="intro-section"
+        style="margin-top: 1.5rem; margin-bottom: 3rem; padding: 2.5rem; background: linear-gradient(135deg, #f0f6fa 0%, #ffffff 100%); border-radius: 8px; border-left: 5px solid #2b88d9;">
+        <h2 style="font-size: 1.8rem; color: #1a3a52; margin-bottom: 1.5rem; font-weight: 600;">
+            <span id="greeting-text">你好，我是 Alex</span>
+        </h2>
         <p style="color: #4a5568; font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem;">
             欢迎来到我的个人主页。我是一名软件工程师，热衷于探索最新的技术，分享开发心得和经验。
         </p>
@@ -19,7 +21,7 @@ description: "个人博客 - 技术分享与思考"
 
     <!-- 博文列表 -->
     <section>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1.2rem; color: #333;">
+        <h2 style="font-size: 1.7rem; margin-bottom: 0; padding-bottom: 0.75rem; color: #1a3a52; border-bottom: 2px solid #2b88d9;">
             <i class="fas fa-newspaper" style="margin-right: 0.5rem; color: #2b88d9;"></i>最新文章
         </h2>
 
@@ -29,8 +31,8 @@ description: "个人博客 - 技术分享与思考"
             {% if post.lang == 'zh' or post.lang == nil %}
             <li class="post-item">
                 <a href="{{ post.url | prepend: site.baseurl }}" style="text-decoration: none; display: block;">
-                    <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: nowrap;">
-                        <h2 class="post-title" style="margin: 0; white-space: nowrap;">{{ post.title }}</h2>
+                    <div class="post-title-row" style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap;">
+                        <h2 class="post-title" style="margin: 0;">{{ post.title }}</h2>
                         {% if post.tags %}
                         <span class="tags">
                             {% for tag in post.tags %}
@@ -79,9 +81,11 @@ description: "个人博客 - 技术分享与思考"
 <!-- English Version -->
 <div class="container" data-lang="en" style="display: none;">
     <!-- Personal Introduction -->
-    <section
-        style="margin-top: 3rem; margin-bottom: 3rem; padding: 2.5rem; background: linear-gradient(135deg, #f0f6fa 0%, #ffffff 100%); border-radius: 8px; border-left: 5px solid #2b88d9;">
-        <h2 style="font-size: 1.8rem; color: #1a3a52; margin-bottom: 1.5rem; font-weight: 600;">Hi, I'm Alex</h2>
+    <section class="intro-section"
+        style="margin-top: 1.5rem; margin-bottom: 3rem; padding: 2.5rem; background: linear-gradient(135deg, #f0f6fa 0%, #ffffff 100%); border-radius: 8px; border-left: 5px solid #2b88d9;">
+        <h2 style="font-size: 1.8rem; color: #1a3a52; margin-bottom: 1.5rem; font-weight: 600;">
+            <span id="greeting-text-en">Hi, I am Alex</span>
+        </h2>
         <p style="color: #4a5568; font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem;">
             Welcome to my home page. I'm a software engineer passionate about exploring cutting-edge technologies and
             sharing development insights and experiences.
@@ -95,7 +99,7 @@ description: "个人博客 - 技术分享与思考"
 
     <!-- Blog Posts -->
     <section>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1.2rem; color: #333;">
+        <h2 style="font-size: 1.7rem; margin-bottom: 0; padding-bottom: 0.75rem; color: #1a3a52; border-bottom: 2px solid #2b88d9;">
             <i class="fas fa-newspaper" style="margin-right: 0.5rem; color: #2b88d9;"></i>Latest Posts
         </h2>
 
@@ -105,8 +109,8 @@ description: "个人博客 - 技术分享与思考"
             {% if post.lang == 'en' %}
             <li class="post-item">
                 <a href="{{ post.url | prepend: site.baseurl }}" style="text-decoration: none; display: block;">
-                    <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: nowrap;">
-                        <h2 class="post-title" style="margin: 0; white-space: nowrap;">{{ post.title }}</h2>
+                    <div class="post-title-row" style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap;">
+                        <h2 class="post-title" style="margin: 0;">{{ post.title }}</h2>
                         {% if post.tags %}
                         <span class="tags">
                             {% for tag in post.tags %}
@@ -151,3 +155,54 @@ description: "个人博客 - 技术分享与思考"
         {% endif %}
     </section>
 </div>
+
+
+<script>
+    // Greeting text rotation
+    (function() {
+        const greetings = [
+            '你好，我是 Alex',
+            'Hi, I am Alex',
+            '你好，我系 Alex'
+        ];
+        let currentIndex = 0;
+        
+        function rotateGreeting() {
+            const greetingElement = document.getElementById('greeting-text');
+            const greetingElementEn = document.getElementById('greeting-text-en');
+            
+            if (greetingElement || greetingElementEn) {
+                currentIndex = (currentIndex + 1) % greetings.length;
+                
+                if (greetingElement) {
+                    greetingElement.style.opacity = '0';
+                    setTimeout(() => {
+                        greetingElement.textContent = greetings[currentIndex];
+                        greetingElement.style.opacity = '1';
+                    }, 300);
+                }
+                
+                if (greetingElementEn) {
+                    greetingElementEn.style.opacity = '0';
+                    setTimeout(() => {
+                        greetingElementEn.textContent = greetings[currentIndex];
+                        greetingElementEn.style.opacity = '1';
+                    }, 300);
+                }
+            }
+        }
+        
+        // Add transition style
+        const style = document.createElement('style');
+        style.textContent = `
+            #greeting-text, #greeting-text-en {
+                transition: opacity 0.3s ease-in-out;
+                display: inline-block;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Rotate every 3 seconds
+        setInterval(rotateGreeting, 3000);
+    })();
+</script>

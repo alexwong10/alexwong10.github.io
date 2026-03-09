@@ -9,12 +9,12 @@ permalink: /articles.html
     <!-- Chinese Version -->
     <div data-lang="zh">
         <h1
-            style="font-size: 2.2rem; color: #1a3a52; margin: 2rem 0 2.5rem; border-bottom: 3px solid #2b88d9; padding-bottom: 1rem;">
-            所有文章</h1>
+            style="font-size: 1.7rem; color: #1a3a52; margin: 1.5rem 0 0; padding-bottom: 0.75rem; border-bottom: 2px solid #2b88d9;">
+            <i class="fas fa-folder-open" style="margin-right: 0.5rem; color: #2b88d9;"></i>所有文章</h1>
 
         {% assign posts = site.posts | sort: 'date' | reverse %}
         {% if posts.size > 0 %}
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <div class="articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 0.5rem;">
             {% for post in posts %}
             {% if post.lang == 'zh' or post.lang == nil %}
             <article
@@ -56,12 +56,12 @@ permalink: /articles.html
     <!-- English Version -->
     <div data-lang="en" style="display: none;">
         <h1
-            style="font-size: 2.2rem; color: #1a3a52; margin: 2rem 0 2.5rem; border-bottom: 3px solid #2b88d9; padding-bottom: 1rem;">
-            All Articles</h1>
+            style="font-size: 1.7rem; color: #1a3a52; margin: 1.5rem 0 0; padding-bottom: 0.75rem; border-bottom: 2px solid #2b88d9;">
+            <i class="fas fa-folder-open" style="margin-right: 0.5rem; color: #2b88d9;"></i>All Articles</h1>
 
         {% assign posts = site.posts | sort: 'date' | reverse %}
         {% if posts.size > 0 %}
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <div class="articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 0.5rem;">
             {% for post in posts %}
             {% if post.lang == 'en' %}
             <article

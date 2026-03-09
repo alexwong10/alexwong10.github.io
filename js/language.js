@@ -33,16 +33,55 @@
     }
   }
 
-  // Update toggle button text
+  // Update toggle button text (not needed for icon buttons)
   function updateToggleButtonText(lang) {
-    const btn = document.getElementById('lang-toggle-btn');
-    if (btn) {
-      btn.textContent = lang === 'zh' ? 'English' : '中文';
-    }
+    // Both desktop and mobile use icon buttons now
+    // No text update needed
   }
 
   // Get current language
   window.getCurrentLanguage = function () {
     return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANGUAGE;
   };
+
+  // Toggle mobile menu
+  window.toggleMobileMenu = function () {
+    const navWrapper = document.getElementById('nav-wrapper');
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (navWrapper && menuToggle) {
+      navWrapper.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    }
+  };
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const navWrapper = document.getElementById('nav-wrapper');
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.site-header nav');
+    
+    if (navWrapper && menuToggle && nav) {
+      if (!nav.contains(event.target) && navWrapper.classList.contains('active')) {
+        navWrapper.classList.remove('active');
+        menuToggle.classList.remove('active');
+      }
+    }
+  });
+
+  // Close mobile menu when clicking on a link
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.site-nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        const navWrapper = document.getElementById('nav-wrapper');
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (navWrapper && menuToggle && window.innerWidth <= 768) {
+          navWrapper.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    });
+  });
 })();
