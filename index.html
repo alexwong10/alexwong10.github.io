@@ -54,7 +54,7 @@ description: "个人博客 - 技术分享与思考"
         <nav class="pagination" style="margin-top: 1.5rem; text-align: center;">
             {% if paginator.previous_page %}
             <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-                class="btn btn-outline" style="margin-right: 1rem;">&larr; 新文章</a>
+                style="margin-right: 1rem; color: #2b88d9; text-decoration: none;">&larr; 新文章</a>
             {% endif %}
 
             <span style="margin: 0 1rem; color: #666;">
@@ -63,7 +63,7 @@ description: "个人博客 - 技术分享与思考"
 
             {% if paginator.next_page %}
             <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-                class="btn btn-outline">旧文章 &rarr;</a>
+                style="color: #2b88d9; text-decoration: none;">旧文章 &rarr;</a>
             {% endif %}
         </nav>
         {% endif %}
@@ -132,7 +132,7 @@ description: "个人博客 - 技术分享与思考"
         <nav class="pagination" style="margin-top: 1.5rem; text-align: center;">
             {% if paginator.previous_page %}
             <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-                class="btn btn-outline" style="margin-right: 1rem;">&larr; Newer Posts</a>
+                style="margin-right: 1rem; color: #2b88d9; text-decoration: none;">&larr; Newer Posts</a>
             {% endif %}
 
             <span style="margin: 0 1rem; color: #666;">
@@ -141,7 +141,7 @@ description: "个人博客 - 技术分享与思考"
 
             {% if paginator.next_page %}
             <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-                class="btn btn-outline">Older Posts &rarr;</a>
+                style="color: #2b88d9; text-decoration: none;">Older Posts &rarr;</a>
             {% endif %}
         </nav>
         {% endif %}
