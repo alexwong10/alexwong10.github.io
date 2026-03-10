@@ -749,6 +749,10 @@ a:hover {
     font-size: 1.25rem !important;
   }
 
+  h2[style*="font-size: 1.4rem"] {
+    font-size: 1.2rem !important;
+  }
+
   .skills-grid {
     grid-template-columns: 1fr !important;
   }
@@ -922,6 +926,10 @@ a:hover {
 
   h2[style*="font-size: 1.6rem"] {
     font-size: 1.1rem !important;
+  }
+
+  h2[style*="font-size: 1.4rem"] {
+    font-size: 1.05rem !important;
   }
 
   h2[style*="font-size: 1.25rem"] {
