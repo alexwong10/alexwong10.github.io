@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">VS Code Copilot Agents four entry points</title>
+  <desc id="desc">A diagram that maps a user goal to local agents, Copilot CLI, cloud agents, and third-party agents in VS Code.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b88d9"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#1a3a52" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .subtitle { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #4a5568; }
+      .card-title { font: 700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .body { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #2c5282; }
+      .small { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #2b88d9; }
+    </style>
+  </defs>
+
+  <rect width="920" height="520" fill="#ffffff"/>
+  <rect x="22" y="22" width="876" height="476" rx="14" fill="#f8fbfd" stroke="#c0d9f0"/>
+
+  <text x="52" y="68" class="title">VS Code Copilot Agents：先选入口</text>
+  <text x="52" y="98" class="subtitle">同一句需求，可以进入不同执行环境；差别在于上下文、交互方式和交付物。</text>
+
+  <rect x="360" y="145" width="200" height="82" rx="10" fill="#ffffff" stroke="#2b88d9" stroke-width="2" filter="url(#shadow)"/>
+  <text x="420" y="178" class="card-title">一句需求</text>
+  <text x="394" y="205" class="body">修一个缺陷、加一个功能、整理一次重构</text>
+
+  <line x1="360" y1="186" x2="236" y2="186" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="560" y1="186" x2="684" y2="186" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="460" y1="227" x2="460" y2="305" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <path d="M393 224 C310 265, 230 297, 190 324" fill="none" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <path d="M527 224 C610 265, 690 297, 730 324" fill="none" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <rect x="64" y="132" width="238" height="118" rx="8" fill="#edf7ff" stroke="#9bc8ef" filter="url(#shadow)"/>
+  <text x="88" y="166" class="card-title">本地 Agent</text>
+  <text x="88" y="194" class="body">在 VS Code 里边聊边改</text>
+  <text x="88" y="218" class="small">适合探索、调试、即时反馈</text>
+
+  <rect x="618" y="132" width="238" height="118" rx="8" fill="#ecf8f1" stroke="#9bd6b1" filter="url(#shadow)"/>
+  <text x="642" y="166" class="card-title">Copilot CLI</text>
+  <text x="642" y="194" class="body">本地后台执行任务</text>
+  <text x="642" y="218" class="small">适合 worktree 和并行实现</text>
+
+  <rect x="64" y="320" width="238" height="118" rx="8" fill="#fff7e8" stroke="#e7c37a" filter="url(#shadow)"/>
+  <text x="88" y="354" class="card-title">Cloud Agent</text>
+  <text x="88" y="382" class="body">在 GitHub 云端跑任务</text>
+  <text x="88" y="406" class="small">适合明确需求和 PR 交付</text>
+
+  <rect x="341" y="320" width="238" height="118" rx="8" fill="#f4f0ff" stroke="#beb1ea" filter="url(#shadow)"/>
+  <text x="365" y="354" class="card-title">Agents Window</text>
+  <text x="365" y="382" class="body">统一查看会话和变更</text>
+  <text x="365" y="406" class="small">适合多任务管理</text>
+
+  <rect x="618" y="320" width="238" height="118" rx="8" fill="#fff0f4" stroke="#e8a7ba" filter="url(#shadow)"/>
+  <text x="642" y="354" class="card-title">第三方 Agent</text>
+  <text x="642" y="382" class="body">Claude、Codex 等接入 VS Code</text>
+  <text x="642" y="406" class="small">适合跨模型和专用能力</text>
+</svg>

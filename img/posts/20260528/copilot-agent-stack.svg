@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+  <title id="title">Planning memory and tools stack for Copilot agents</title>
+  <desc id="desc">A layered diagram showing planning, memory, tools, permissions, and subagents.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b88d9"/>
+    </marker>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .subtitle { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #4a5568; }
+      .layer-title { font: 700 19px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .body { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #2c5282; }
+      .pill { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+    </style>
+  </defs>
+
+  <rect width="920" height="560" fill="#ffffff"/>
+  <rect x="22" y="22" width="876" height="516" rx="14" fill="#f8fbfd" stroke="#c0d9f0"/>
+
+  <text x="52" y="68" class="title">Agent 能跑起来，靠这几层</text>
+  <text x="52" y="98" class="subtitle">规划负责把目标拆清楚，记忆负责保留稳定偏好，工具和权限决定它能做什么。</text>
+
+  <rect x="88" y="136" width="744" height="70" rx="8" fill="#edf7ff" stroke="#9bc8ef"/>
+  <text x="116" y="166" class="layer-title">1. 规划层</text>
+  <text x="248" y="166" class="body">Plan Agent 先收集上下文、提出计划，再把计划交给实现会话。</text>
+  <text x="248" y="190" class="body">适合需求还没有完全落地、改动可能跨多个文件的任务。</text>
+
+  <line x1="460" y1="206" x2="460" y2="236" stroke="#2b88d9" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="88" y="238" width="744" height="88" rx="8" fill="#ecf8f1" stroke="#9bd6b1"/>
+  <text x="116" y="270" class="layer-title">2. 记忆层</text>
+  <text x="248" y="270" class="body">本地 Memory 记录个人偏好、项目约定和会话计划。</text>
+  <text x="248" y="294" class="body">Copilot Memory 把仓库级经验放在 GitHub 侧，供不同代理复用。</text>
+  <rect x="622" y="258" width="86" height="28" rx="14" fill="#ffffff" stroke="#80c59a"/>
+  <text x="641" y="277" class="pill">user</text>
+  <rect x="716" y="258" width="86" height="28" rx="14" fill="#ffffff" stroke="#80c59a"/>
+  <text x="735" y="277" class="pill">repo</text>
+  <rect x="622" y="292" width="180" height="28" rx="14" fill="#ffffff" stroke="#80c59a"/>
+  <text x="667" y="311" class="pill">session</text>
+
+  <line x1="460" y1="326" x2="460" y2="356" stroke="#2b88d9" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="88" y="358" width="744" height="88" rx="8" fill="#fff7e8" stroke="#e7c37a"/>
+  <text x="116" y="390" class="layer-title">3. 工具与权限层</text>
+  <text x="248" y="390" class="body">内置工具、MCP、扩展工具、终端、浏览器，让代理可以读、改、跑、查。</text>
+  <text x="248" y="414" class="body">权限模式决定每一步是否需要确认，尤其是命令、文件写入和外部访问。</text>
+
+  <line x1="460" y1="446" x2="460" y2="476" stroke="#2b88d9" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="88" y="478" width="744" height="44" rx="8" fill="#fff0f4" stroke="#e8a7ba"/>
+  <text x="116" y="506" class="layer-title">4. 子代理层</text>
+  <text x="248" y="506" class="body">把安全审计、测试排查、文档梳理等子任务隔离到独立上下文中并行处理。</text>
+</svg>

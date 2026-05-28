@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">A practical workflow from idea to pull request with Copilot agents</title>
+  <desc id="desc">A left to right workflow for using Plan agent, local agent, Copilot CLI, cloud agent, and review in VS Code.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b88d9"/>
+    </marker>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .subtitle { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #4a5568; }
+      .step { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1a3a52; }
+      .body { font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #2c5282; }
+      .num { font: 700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="920" height="420" fill="#ffffff"/>
+  <rect x="22" y="22" width="876" height="376" rx="14" fill="#f8fbfd" stroke="#c0d9f0"/>
+
+  <text x="52" y="68" class="title">从一句需求到一条 PR</text>
+  <text x="52" y="98" class="subtitle">把官方教程拆成一条可复用路线：先澄清，再规划，再选择本地后台或云端交付。</text>
+
+  <g transform="translate(56 152)">
+    <rect x="0" y="0" width="140" height="130" rx="8" fill="#edf7ff" stroke="#9bc8ef"/>
+    <circle cx="24" cy="24" r="15" fill="#2b88d9"/>
+    <text x="19" y="29" class="num">1</text>
+    <text x="18" y="62" class="step">澄清目标</text>
+    <text x="18" y="92" class="body">本地 Agent</text>
+    <text x="18" y="114" class="body">补足上下文</text>
+  </g>
+
+  <line x1="196" y1="217" x2="252" y2="217" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(252 152)">
+    <rect x="0" y="0" width="140" height="130" rx="8" fill="#ecf8f1" stroke="#9bd6b1"/>
+    <circle cx="24" cy="24" r="15" fill="#2f855a"/>
+    <text x="19" y="29" class="num">2</text>
+    <text x="18" y="62" class="step">写计划</text>
+    <text x="18" y="92" class="body">Plan Agent</text>
+    <text x="18" y="114" class="body">列出验证点</text>
+  </g>
+
+  <line x1="392" y1="217" x2="448" y2="217" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(448 152)">
+    <rect x="0" y="0" width="140" height="130" rx="8" fill="#fff7e8" stroke="#e7c37a"/>
+    <circle cx="24" cy="24" r="15" fill="#b7791f"/>
+    <text x="19" y="29" class="num">3</text>
+    <text x="18" y="62" class="step">后台实现</text>
+    <text x="18" y="92" class="body">Copilot CLI</text>
+    <text x="18" y="114" class="body">worktree 隔离</text>
+  </g>
+
+  <line x1="588" y1="217" x2="644" y2="217" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(644 152)">
+    <rect x="0" y="0" width="140" height="130" rx="8" fill="#f4f0ff" stroke="#beb1ea"/>
+    <circle cx="24" cy="24" r="15" fill="#6b46c1"/>
+    <text x="19" y="29" class="num">4</text>
+    <text x="18" y="62" class="step">云端 PR</text>
+    <text x="18" y="92" class="body">Cloud Agent</text>
+    <text x="18" y="114" class="body">交给团队审阅</text>
+  </g>
+
+  <line x1="714" y1="282" x2="714" y2="326" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="714" y1="326" x2="128" y2="326" stroke="#2b88d9" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <rect x="118" y="310" width="600" height="46" rx="23" fill="#ffffff" stroke="#2b88d9"/>
+  <text x="145" y="339" class="step">回到 Agents Window：看会话、查变更、跑测试、决定是否合并</text>
+</svg>
