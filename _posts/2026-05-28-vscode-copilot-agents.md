@@ -8,152 +8,129 @@ excerpt: "agent的许多概念听起来不难，但具体细节值得玩味"
 
 ## 引言
 
-因为公司合规问题，日常工作中用基本VSCode + Copilot，而不是Codex或者Claude Code。~~（这俩没有承诺不用客户数据来训练）~~。虽然讨论度不如后两者，但Copilot支持了各种agent的玩法。本文基于VSCode 官方文档整理，把其中的agent体系讲成一张能记住的地图。关键概念都链接到原文，方便继续深挖。
+因为公司合规问题，日常工作中用基本VSCode + Copilot，而不是Codex或者Claude Code。~~（这俩没有承诺不用客户数据来训练）~~。虽然讨论度不如后两者，但Copilot支持了各种agent的玩法。本文结合官方文档对相关内容进行了整理和分析。
 
-## 1. 先选入口：你要它坐在旁边，还是自己去跑？
+## agent的自主性
+> An agent is an AI assistant that works autonomously to complete a coding task
 
-![VS Code Copilot Agents 四类入口](/img/posts/20260528/copilot-agent-map.svg)
+在VSCode语境下，agent是一个可以自主工作以完成一个编码任务的助手。其中最关键的是自主性。所谓autonomously，至少包含以下三点：
+- agent可以根据目标自己规划执行步骤。我们不用事无巨细地描述要如何完成某项任务
+- agent可以自己访问文件、编辑文件、运行命令、调用工具。我们不用像早期使用LLM那样，在对话框里和AI聊天，然后把内容复制粘贴到IDE里
+- 执行任务出错的时候，AI可以自己进行修复。我们不用时刻盯着执行过程，在AI遇到问题而终止任务的时候输入新指令 
 
-官方 [Copilot coding agents overview](https://code.visualstudio.com/docs/copilot/agents/overview) 把 agents 放在一个共同框架里：它们可以理解高层目标、规划步骤、编辑代码、运行命令，并在出错后尝试修正。区别不在“是不是 Agent”，而在它运行在哪里，以及你希望它以什么形式交付结果。
+相应地，要达到以上效果，应用agent的时候，就要重点关注以下要素：
+- 我们任务的目标是什么，这一个目标是不是agent能做到的，也就是常被提及AI能力边界
+- 要赋予agent哪些权限
+- 出错的时候，AI的修复是否真的满足我们的要求。
 
-| 场景                              | 更适合的入口                                                                               | 核心理由                                       |
-| --------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------- |
-| 需求还模糊，需要边问边改          | [本地 Agent](https://code.visualstudio.com/docs/copilot/agents/local-agents)               | 能看当前 workspace、编辑器上下文和本地工具反馈 |
-| 任务明确，但会花一段时间          | [Copilot CLI](https://code.visualstudio.com/docs/copilot/agents/copilot-cli)               | 在本地后台运行，适合用 worktree 隔离并行任务   |
-| 目标清楚，希望最后产出 PR         | [Cloud Agent](https://code.visualstudio.com/docs/copilot/agents/cloud-agents)              | 在 GitHub 云端运行，天然面向分支、提交和 PR    |
-| 想把 Claude、Codex 等放进 VS Code | [Third-party Agents](https://code.visualstudio.com/docs/copilot/agents/third-party-agents) | 统一在 VS Code 里管理不同代理和模型能力        |
-| 同时开了很多任务                  | [Agents Window](https://code.visualstudio.com/docs/copilot/agents/agents-window)           | 以任务为中心查看会话、变更和后续操作           |
+对于agent开发者来说，则面临着以下问题：
+- 怎么保证agent的运行始终围绕目标
+- agent要如何完成访问编辑等操作
+- 怎么判断任务是否出错以及agent要怎么知道如何解决问题
 
-这张表可以当作日常判断口诀：模糊任务先本地，明确任务可后台，团队交付走云端，模型生态看第三方。
+## agentic循环
+agent的工作模式可以概括为一个agentic循环。如下图：
 
-### 本地 Agent：和你一起坐在 VS Code 里
+![Agentic循环](/img/posts/20260528/agent-loop.png)
 
-[Local agents](https://code.visualstudio.com/docs/copilot/agents/local-agents) 是最像“结对编程”的入口。它们在你的 VS Code 会话中工作，可以读取代码库、编辑文件、调用工具、运行终端命令，也能利用你安装的扩展工具和 MCP 工具。
+其中包含三个阶段：
+- **理解Understand**：一方面是理解提示词；另一方面是通过工具调用理解现状。这样agent才能知道具体要做什么。同时，在执行、验证之后，也要理解新的情况，以进行新的计划。
+- **执行Act**：执行理解之后的计划。执行方式可以很多种，包括修改文件、运行命令、安装依赖、调用外部服务等，本质上也是工具调用。
+- **验证Validate**：通过工具调用，验证执行的结果是否满足预期。如果出错了，就继续迭代
 
-本地 Agent 的价值不只是“会改代码”。它最大的优势是反馈短：你看到它的计划、它看到你的文件、你能随时打断或补充上下文。适合调试、探索老项目、迁移小模块、解释错误日志这类需要来回对齐的任务。
+和前一节对比就能发现，在agent中，agentic循环和自主性是一体两面的。前者更侧重于描述agent如何工作（如何实现自主性），而后者则侧重于描述agent的属性。
 
-不过要注意，“本地 Agent”不等于模型一定在本机运行。官方文档也提醒，代理可以在本地 VS Code 中执行工具，但语言模型本身可能仍由远端服务提供。
+## 上下文
 
-### Copilot CLI：把明确任务放到后台
+LLM可以在给定输入的情况下生成内容。由于LLM是无状态的，一次请求中，LLM所处理的信息量就是它的上下文。
+它可能包括系统提示词、对话历史、文件内容、工具调用结果、用户发送的消息等，如下图。
+![上下文组成](/img/posts/20260528/context-assembly.png)
 
-[Copilot CLI](https://code.visualstudio.com/docs/copilot/agents/copilot-cli) 更像一个本地后台执行器。你可以从终端或 VS Code 启动任务，让它在本地环境里独立跑，并通过 Git worktree 把变更隔离起来。
+为了让agent生成得到更加符合预期的输出，管理上下文的时候至少有两方面的事情要做：
+### 尽量将相关的内容纳入上下文
+- 指定需要的内容。
+最朴素的方式就是在提示词中说明要参考什么什么文件。VSCode也支持通过[#号](https://code.visualstudio.com/docs/chat/copilot-chat-context)添加内容。
+对于原则性的内容，则可以考虑利用instruction机制保证它在每一次对话中都生效
+- 保留需要的内容。
+随着对话进行，上下文难免会越来越大。当上下文窗口填满时，VSCode会自动进行上下文压缩。用户也可以通过/compact的方式进行主动压缩，并且可以在压缩时指定偏好，从而避免信息丢失。
 
-这个入口适合“我知道要做什么，但不想盯着它每一步”的任务，例如：补测试、修一批 lint、完成一个小功能、迁移某个 API 的调用方式。CLI 的重点不是聊天体验，而是让任务变成一个可观察、可回收、可继续的后台会话。
+### 尽量将不相关的内容排除出上下文
+不相关的内容可以来自当前的仓库。前面提到的指定需要的内容，实际上也是在避免不相关的文本被处理。
+而在agent运行的动态语境下，这些内容还可能来自：
+- 当前任务的历史记录。压缩可以让我们舍弃掉一些不再相关的内容，比如工具调用产生的一些中间结果
+- 其它任务的历史记录。VSCode按会话（session）来管理任务，确保不同session之间上下文互不影响。如果要执行一个全新的任务，最好的做法也是新开一个session。
 
-它也有边界：CLI 不等于完整复刻你的 VS Code 交互上下文，某些扩展工具、远程开发场景和本地 MCP 工具会有差异。把它当作“本地任务执行队列”，会比把它当作万能 IDE 更稳。
+### 记忆
+不同任务不一定是完全不相关的。比如在同一个代码仓库中，开发不同的feature，编码原则、仓库架构等内 容实际上是可以复用的。
+记忆是用来解决跨任务的上下文复用问题的，可以理解成一种特殊的上下文。
+跨任务可以在不同的层面体现，与之相应的，记忆可以存储在不同的层面。
 
-### Cloud Agent：把任务交给 GitHub 侧的 PR 流程
+- 不同用户执行的任务。用户级记忆放在/memories/，每次会话都会自动加载。
+- 不同的仓库中执行的任务。VSCode中，仓库级记忆存放在/memories/repo/
+- 同一仓库中执行的不同任务。如果是同一会话，VSCode会把记忆存放在/memories/sessions/，关闭对话的时候就会清空。如果是跨会话，记忆存放在/memories/repo/，它对整个工作区都生效。
+plan型agent实际上就是在/memories/sessions/中写入一个plan.md
 
-[Cloud agents](https://code.visualstudio.com/docs/copilot/agents/cloud-agents) 运行在 GitHub 托管环境里。它们更适合需求已经明确、边界比较清晰、最后希望通过 PR 审阅的任务。
+### 子agent
+>A subagent is an independent AI agent that performs focused work, such as researching a topic or analyzing code, and reports the results back to the main agent.
 
-它和本地 Agent 的差别很实际：云端 Agent 没有你的编辑器即时状态，也不天然拥有本机运行环境；但它和仓库、分支、提交、Pull Request 的关系更直接。换句话说，本地 Agent 更像一起在桌面上推演，Cloud Agent 更像你给一个 issue，它去开分支、改代码、提 PR。
+执行复杂任务的时候，主agent可以将部分任务分发给独立的agent执行。这些独立的agent就是子agent。
+子agent拥有与主agent隔离的上下文。在分发任务的时候，尽量把任务相关的上下文传递给子agent，能使其更专注于任务本身。
+从这个角度来说，子agent可以理解成一种优化上下文的机制。
+对主agent来说，子agent会同步执行，主agent要等待子agent返回结果后才能继续执行。不同的子agent可以并行执行。
 
-### 第三方 Agent：让 VS Code 成为统一入口
+使用子agent的[典型场景](https://code.visualstudio.com/docs/agents/subagents)包括：
+- 子agent对最佳实践、已有库文件、当前仓库范式等不同层面进行研究，由主agent实现功能
+- 子agent从不同的角度进行代码分析或审查，由主agent输出报告
+- 子agent探索不同的解决方案，由主agent进行方案比较
+- 子agent对同一问题使用不同的模型进行分析，由主agent进行汇总
 
-[Third-party agents](https://code.visualstudio.com/docs/copilot/agents/third-party-agents) 解决的是另一个问题：既然团队可能同时用 Claude、OpenAI Codex 等不同代理，VS Code 能不能成为统一工作台？
+## 使用技巧
+### 事先规划
+VSCode提供了一个[plan](https://code.visualstudio.com/docs/copilot/agents/planning)型agent。这一种agent也对应着经典的agent范式：Plan-and-Execute。顾名思义，就是在具体代码实现之前先完成设计。设计过程中，如果发现有问题，可以及时纠正，避免中途发现有问题而带来不必要的时间和token消耗。
 
-官方文档把第三方 agents 分成本地和云端两类。它们可以以扩展、CLI 或 Partner Agent 的方式接入 VS Code，并和 Copilot 订阅、模型授权、会话管理一起工作。这个能力还带有明显的 Preview 色彩，适合愿意尝鲜、也愿意处理权限和计费边界的团队。
+plan型agent的输出是一个plan.md，文档会存在/memories/session/plan.md。可以通过运行**Chat: Show Memory Files**获取。
 
-## 2. Agents Window：从“代码窗口”切到“任务窗口”
+为了让plan型agent更加符合用意，还可以进行[定制](https://code.visualstudio.com/docs/copilot/customization/custom-agents)。定制的时候可以选择指定的模型和调用工具。比如以下例子：
+```
+---
+description: Generate an implementation plan for new features or refactoring existing code.
+name: Planner
+tools: ['web/fetch', 'search/codebase', 'search/usages']
+model: ['Claude Opus 4.5', 'GPT-5.2']  # Tries models in order
+handoffs:
+  - label: Implement Plan
+    agent: agent
+    prompt: Implement the plan outlined above.
+    send: false
+---
+# Planning instructions
+You are in planning mode. Your task is to generate an implementation plan for a new feature or for refactoring existing code.
+Don't make any code edits, just generate a plan.
 
-[Agents Window](https://code.visualstudio.com/docs/copilot/agents/agents-window) 是这套体系里最容易被低估的一环。它不是又一个聊天侧边栏，而是一个 agent-first 的界面：你可以在里面创建、查看、继续多个 agent 会话，并检查它们产生的变更。
+The plan consists of a Markdown document that describes the implementation plan, including the following sections:
 
-当你只开一个任务时，Chat 够用；当你同时让一个本地 Agent 查 bug、一个 CLI 会话补测试、一个云端 Agent 做 PR，普通聊天面板就不够了。Agents Window 的作用是把这些工作从“对话列表”提升到“任务列表”。
+* Overview: A brief description of the feature or refactoring task.
+* Requirements: A list of requirements for the feature or refactoring task.
+* Implementation Steps: A detailed list of steps to implement the feature or refactoring task.
+* Testing: A list of tests that need to be implemented to verify the feature or refactoring task.
+```
 
-它还支持进入特定 workspace、查看会话详情、管理自定义设置，并在 VS Code 或浏览器环境中使用。官方把它标为 Preview，所以实际使用时要把它看成快速演进中的工作台，而不是最终形态。
+### 定制化
+同一个问题，在不同的提示词影响下，LLM可以给出不同的答案。为了让LLM生成跟符合我们意图的内容，往往需要进行定制。这正是提示词所做的事情。
+#### 定制instructions
+在.github目录下，创建一个copilot-instruction.md，可以让AI按照对应的标准去完成编码等任务。对于已有的代码库，也可以通过在对话框中输入/init自动生成instructions
+  
+#### 定制agent
+在介绍plan型agent的时候就提到了可以定制agent。简单来说，就是在.github/agents目录下，创建一个md文件。在md文件中，指定agent执行任务时的工作流等细节。
+通过这种方式创建的agent和默认的plan/agent/ask模式的agent是并列关系的。因此可以在对话框中直接选定。
 
-## 3. 规划、记忆、工具：Agent 能不能靠谱，主要看这三件事
+### 利用好上下文
+#### 新的任务，新的会话
+如果要执行一项不相关的任务，应该新开一个session，避免其它任务的无关的上下文干扰
 
-![Copilot Agents 的规划、记忆和工具层](/img/posts/20260528/copilot-agent-stack.svg)
+#### 有选择性的添加上下文
+不要总是使用整个仓库。避免仓库中的无关上下文干扰
 
-很多人第一次用 Agent 会犯一个小错误：给它一句很大的目标，然后期待它自动完成全部工程判断。官方这几篇文档其实在反复强调另一件事：Agent 的能力来自上下文、工具和约束。
+#### 定制instruction
+将一些始终存在的规则写成instruction，确保每一次提示词都会封装。
 
-### 规划：先让 Agent 把“要做什么”说清楚
-
-[Planning](https://code.visualstudio.com/docs/copilot/agents/planning) 文档介绍的 Plan agent，就是专门用来先做计划的。它会收集上下文、必要时追问，然后把任务拆成实现步骤和验证步骤。
-
-我会把 Plan agent 用在三类任务上：
-
-- 需求一句话说不完，比如“重构认证逻辑”；
-- 影响范围不清楚，比如“把旧接口迁到新 SDK”；
-- 需要先对齐验收标准，比如“修复偶现的性能下降”。
-
-一个好的计划不只是待办清单，它应该说清楚改哪些模块、为什么这么改、如何验证。官方 [Agents tutorial](https://code.visualstudio.com/docs/copilot/agents/agents-tutorial) 里也把 Plan agent 放在从任务到实现的路线中，这很符合真实开发节奏：先想清楚，再让 Agent 开工。
-
-### 记忆：把稳定偏好留住，而不是每次重新解释
-
-[Memory](https://code.visualstudio.com/docs/copilot/agents/memory) 解决的是“上下文会断”的问题。VS Code 里有两类记忆：
-
-| 类型           | 放在哪里      | 适合记什么                             |
-| -------------- | ------------- | -------------------------------------- |
-| Local Memory   | 本机文件      | 个人偏好、项目约定、当前会话计划       |
-| Copilot Memory | GitHub 托管侧 | 仓库级经验，供不同 Copilot agents 复用 |
-
-这很像团队里的新人笔记。不要把所有临时想法都塞进去，适合写入记忆的是稳定、可复用、下次还会影响判断的东西，例如：项目偏好的测试命令、组件命名习惯、不要改动的生成文件、部署脚本的特殊约束。
-
-官方也提醒 Copilot Memory 仍是 Preview，并且有保留期限和可用范围限制。我的建议是：把 Memory 当成“项目习惯缓存”，不要当成永久知识库。
-
-### 工具和权限：Agent 的手脚，也需要刹车
-
-[Agent tools](https://code.visualstudio.com/docs/copilot/agents/agent-tools) 是最工程化的一页。没有工具，Agent 只能猜；有了工具，它才能查代码、看文件、跑测试、读网页、调用 MCP、使用扩展能力。
-
-但工具越多，越要关心权限。VS Code 提供了不同的确认模式，用来控制文件编辑、终端命令、URL 访问、工具调用等行为。日常开发里我更倾向于从默认权限开始，只在隔离 worktree、临时分支或明确的沙箱任务里放宽确认。
-
-可以这样理解：工具决定 Agent 能到哪里去，权限决定它走到门口时要不要先敲门。
-
-## 4. 子代理：把复杂问题拆给独立上下文
-
-[Subagents](https://code.visualstudio.com/docs/copilot/agents/subagents) 是一个很有用但也容易被误解的能力。它不是让你手动多开几个聊天窗口，而是让主 Agent 把某些子任务派给独立上下文中的小 Agent。
-
-典型用途包括：
-
-- 让一个子代理专门读测试失败日志；
-- 让一个子代理检查安全风险；
-- 让一个子代理梳理文档或 API 使用方式；
-- 让多个子代理并行探索不同方案，主 Agent 最后汇总。
-
-它的价值在“隔离”。主会话不用塞满所有细节，子代理可以只拿到与任务相关的上下文。对于大型代码库，这比把所有文件都扔进同一个对话里更容易保持清醒。
-
-如果团队已经写了自定义 agent，也可以把它作为 subagent 使用，让它带着自己的工具、提示词和模型偏好去处理专门问题。官方文档里也提到，嵌套子代理默认关闭，这个默认值很合理：并行有用，递归失控就麻烦了。
-
-## 5. 一条可复用的实践路线
-
-![从一句需求到 PR 的 Copilot Agents 工作流](/img/posts/20260528/copilot-agent-workflow.svg)
-
-把官方 [Agents tutorial](https://code.visualstudio.com/docs/copilot/agents/agents-tutorial) 抽象一下，可以得到一条很实用的路线：
-
-1. 在 VS Code 里用本地 Agent 澄清目标，让它先读相关文件和错误信息；
-2. 切到 Plan agent，让它产出计划、影响范围和验证点；
-3. 如果任务明确但耗时，交给 Copilot CLI 在 worktree 里后台实现；
-4. 如果需要团队审阅或 issue 到 PR 的闭环，交给 Cloud Agent；
-5. 回到 Agents Window 看会话、查变更、跑测试，决定是否合并。
-
-这条路线的重点不是每次都用满所有入口，而是把不同阶段交给最合适的工具。小修小补不必上云端，大型重构不该省略规划，危险命令不该随便放权，PR 也不该跳过人类 review。
-
-## 6. 我的使用建议
-
-如果你刚开始用 VS Code Copilot Agents，可以按下面这个顺序试：
-
-- 先用本地 Agent 做解释、定位和小改动，熟悉它如何读项目；
-- 碰到跨模块任务时，先用 Plan agent 出计划，再决定是否执行；
-- 对明确、重复、耗时的任务，尝试 Copilot CLI 和 worktree；
-- 对 issue 清楚、适合 PR 的任务，再尝试 Cloud Agent；
-- 需要跨模型能力时，再评估第三方 agents 的授权、计费和权限边界；
-- 把 Memory 用来记录稳定约定，不要让它堆满一次性的上下文；
-- 工具权限从保守开始，只在可回滚的分支或沙箱里放宽。
-
-Agents 的真正价值不是替你省掉判断，而是把“读上下文、列计划、改代码、跑验证、整理交付”这些步骤串成一个可协作的循环。你仍然是工程负责人，Agent 是一个能动手、能汇报、也需要边界的队友。
-
-## 原文索引
-
-- [Copilot coding agents overview](https://code.visualstudio.com/docs/copilot/agents/overview)
-- [Tutorial: Use Copilot agents in VS Code](https://code.visualstudio.com/docs/copilot/agents/agents-tutorial)
-- [Agents Window](https://code.visualstudio.com/docs/copilot/agents/agents-window)
-- [Planning with Copilot agents](https://code.visualstudio.com/docs/copilot/agents/planning)
-- [Memory in VS Code agents](https://code.visualstudio.com/docs/copilot/agents/memory)
-- [Agent tools](https://code.visualstudio.com/docs/copilot/agents/agent-tools)
-- [Subagents](https://code.visualstudio.com/docs/copilot/agents/subagents)
-- [Local agents](https://code.visualstudio.com/docs/copilot/agents/local-agents)
-- [Copilot CLI](https://code.visualstudio.com/docs/copilot/agents/copilot-cli)
-- [Cloud agents](https://code.visualstudio.com/docs/copilot/agents/cloud-agents)
-- [Third-party agents](https://code.visualstudio.com/docs/copilot/agents/third-party-agents)
