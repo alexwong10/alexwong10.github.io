@@ -4,6 +4,7 @@ title: "何为自注意力机制"
 date: 2026-03-15 21:00:00 +0800
 tags: [变形金刚, 大模型, 注意力]
 excerpt: "记录一下对自注意力机制的理解。主要是阅读《从零构建大模型》时的笔记。"
+mathjax: true
 ---
 
 ## 引言
@@ -20,14 +21,97 @@ NLP的一个核心问题是如何准确理解自然语言的含义。不难想�
 传统的注意力机制中，涉及输入序列和输出序列，注意力也在两者之间，在生成输出序列的某个token时，要关注输入序列的特定token。
 而自注意力机制则是关注**同一序列**的所有token。
 
-## 如何关注 - 固定权重
-> 在自注意力机制中，我们的目标是为输入序列中的每个元素$x^(i)$计算上下文向量$z^(i)$。上下文向量可以理解为一种包含了序列中所有元素信息的嵌入向量。
+## 如何关注 - 加权平均
+> 在自注意力机制中，我们的目标是为输入序列中的每个元素$x^{(i)}$计算上下文向量$z^{(i)}$。上下文向量可以理解为一种包含了序列中所有元素信息的嵌入向量。
 
-给定一个输入序列，第i个token向量是$x^(i)$。
-一个朴素的思路是取输入序列中所有$x^(i)$的平均向量。但这样就会导致每个$z^(i)$都一样。因此，在计算平均向量时，还要为不同的token取不同的权重来计算加权平均。
+给定一个输入序列，第i个token向量是$x^{(i)}$。
+一个朴素的思路是取输入序列中所有$x^{(i)}$的平均向量。但这样就会导致每个$z^{(i)}$都一样。因此，在计算平均向量时，还要为不同的token取不同的权重来计算**加权平均**。
 
-权重$w^(i)$的含义是对第i个token的关注程度。越高表示越关注。考虑到$z^(i)$表示的是位置i的上下文，在计算$z^(i)$时，对第i个token的关注程度应该是最高的。因此很自然的做法是，以$x^(i)$之间的点积并归一化来作为权重。
+权重$w^(i)$的含义是对第i个token的关注程度。越高表示越关注。考虑到$z^{(i)}$表示的是位置i的上下文，在计算$z^{(i)}$时，对第i个token的关注程度应该是最高的。很自然的做法是，以$x^{(i)}$之间的点积并归一化来作为权重。
 
-## 如何关注 - 可训练权重
+## 可训练权重
 
-固定权重有一个明显的缺陷就是，$x^(i)$之间的点积和token之间的关注程度实际上是没有必然关系的。
+然而，直接取固定的$x^{(i)}$来进行加权平均并不准确，因为同一个token在不同的上下文中语义显然不完全一致。
+而且，向量点积用于表征的是向量之间的相似度。$x^{(i)}$之间的点积和token之间的关注程度实际上是没有必然关系的。
+
+因此要对以下两方面继续进行优化：
+- 被用来加权平均的向量。可以理解为某个token在当前位置的语义。
+自注意力机制引入权重参数矩阵$W_{value}$对$x^{(i)}$进行变换，得到一个更符合要求的向量$q$。这个向量新被称作值向量。
+
+- 加权平均时的权重。直接用值向量之间的点积会遇到与前面类似的问题。自注意力机制引入了权重参数矩阵$W_{query}$和$W_{key}$。在计算位置i对位置j的关注程度时：
+  - 用$x^{(i)}$ @ $W_{query}$ 进行变换，度量位置i所期望关注的信息。这个新向量被称作查询向量$q$。
+  - 用$x^{(j)}$ @ $W_{key}$ 进行变换，度量位置j所包含的信息。这个新向量被称作键向量$k$。
+
+上述的三个矩阵$W_{query}$，$W_{key}$，$W_{value}$是在神经网络训练过程中优化的参数。
+
+## 因果注意力
+>对于许多大语言模型任务，你希望自注意力机制在预测序列中的下一个词元时仅考虑当前位置之前的词元。
+
+从上面分析可以看到，标准的自注意力机制可以一次获取整个输入序列。在GPT等生成任务中，这显然是不可接受的。因此，在大语言模型中，处理时要屏蔽当前token之后的token。换句话说，我们希望在计算$z^{(i)}$，不关注位置i之后的token，它们对应的注意力权重则应该是0。这就是因果（掩码）注意力。
+
+## 数学trick
+### 归一化
+为了保持可解释性和训练稳定性，需要对注意力权重进行归一化。自注意力机制采用了softmax和$\sqrt{d_k}$缩放的方法。
+在处理因果注意力时，归一化有两种处理方式：
+- 先计算注意力权重，使用softmax归一化，掩码后再次softmax归一化
+- 先计算注意力权重，直接掩码，然后用softmax归一化。
+显然，后者计算效率更高。
+
+### dropout
+为了避免过拟合，自注意机制训练时（且仅在训练时）会采用dropout方法，随机丢弃权重。一般会在计算注意力权重之后就应用dropout掩码。
+
+### 一个demo
+结合以上分析，可以写出一个简单的因果注意力类。
+```Python
+class CausalAttention(nn.Module):
+    def __init__(self, d_in, d_out, context_length,
+                dropout, qkv_bias=False):
+        super().__init__()
+        self.d_out = d_out
+        self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.dropout = nn.Dropout(dropout)
+        self.register_buffer("mask", torch.tril(torch.ones(context_length, context_length), diagonal=1))
+
+    def forward(self, x):
+        b, num_tokens, d_in = x.shape
+        keys = self.W_key(x)
+        queries = self.W_query(x)
+        values = self.W_value(x)
+
+        attn_scores = queries @ keys.transpose(1, 2)
+        attn_scores.masked_fill_(self.mask,bool()[:num_tokens, :num_tokens], -torch.inf)
+        attn_weights = torch.softmax(attn_scores / keys.shape[-1]**0.5, dim=-1)
+
+        attn_weights = self.dropout(attn_weights)
+        context_vec = attn_weights @ values
+        return context_vec
+```
+
+## 更多trick
+
+### 多头注意力
+权重参数矩阵$W_{query}$，$W_{key}$，$W_{value}$本质上是对$x_{(i)}$进行变换，得到对应的线性投影。
+一组权重参数矩阵可以看作是一个注意力头，用于关注输入序列的某个方面。
+既然是投影，就难免存在片面性。因此为了让模型能够关注输入序列的不同方面，自注意力机制引入了多头注意力机制。
+通过使用多组权重参数矩阵，对位置i得到多个上下文向量，然后将这些上下文向量拼接在一起，
+从而增加最终上下文向量的维度，从而实现更全面地表征。
+
+```Python
+class MultiHeadCausalAttention(nn.Module):
+    def __init__(self, d_in, d_out, context_length,
+                num_heads, dropout, qkv_bias=False):
+        super().__init__()
+        self.attn_heads = nn.ModuleList([
+            CausalAttention(d_in, d_out, context_length,
+                            dropout, qkv_bias) for _ in range(num_heads)
+        ])
+
+    def forward(self, x):
+        return torch.cat([attn_head(x) for attn_head in self.attn_heads], dim=-1)
+```
+
+
+
+
