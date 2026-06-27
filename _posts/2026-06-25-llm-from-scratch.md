@@ -89,12 +89,11 @@ class CausalAttention(nn.Module):
         return context_vec
 ```
 
-## 更多trick
-
-### 多头注意力
+## 多头注意力
 权重参数矩阵$W_{query}$，$W_{key}$，$W_{value}$本质上是对$x_{(i)}$进行变换，得到对应的线性投影。
 一组权重参数矩阵可以看作是一个注意力头，用于关注输入序列的某个方面。
-既然是投影，就难免存在片面性。因此为了让模型能够关注输入序列的不同方面，自注意力机制引入了多头注意力机制。
+既然是投影，就难免存在片面性。因此为了让模型能够关注输入序列的不同方面，自注意力机制引入了多头注意力机制，也就是用多个投影。
+
 通过使用多组权重参数矩阵，对位置i得到多个上下文向量，然后将这些上下文向量拼接在一起，
 从而增加最终上下文向量的维度，从而实现更全面地表征。
 
@@ -111,6 +110,57 @@ class MultiHeadCausalAttention(nn.Module):
     def forward(self, x):
         return torch.cat([attn_head(x) for attn_head in self.attn_heads], dim=-1)
 ```
+
+为了提高计算效率，更常见的做法是将多头注意力机制的计算合并在一起，也就是把多个权重参数矩阵合并成一个大的权重参数矩阵。
+
+```Python
+class MultiHeadAttention(nn.Module):
+    def __init__(self, d_in, d_out, context_length,
+                num_heads, dropout, qkv_bias=False):
+        super().__init__()
+        self.num_heads = num_heads
+        self.d_out = d_out
+        self.head_dim = d_out // num_heads # 降低每个头的维度，保证最终输出维度不变
+        self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.dropout = nn.Dropout(dropout)
+        self.register_buffer("mask", torch.tril(torch.ones(context_length, context_length), diagonal=1))
+
+    def forward(self, x):
+        b, num_tokens, d_in = x.shape
+        keys = self.W_key(x)
+        queries = self.W_query(x)
+        values = self.W_value(x)
+
+        keys = keys.view(b, num_tokens, self.num_heads, self.head_dim)
+        queries = queries.view(b, num_tokens, self.num_heads, self.head_dim)
+        values = values.view(b, num_tokens, self.num_heads, self.head_dim)
+
+        keys =  keys.transpose(1, 2)
+        queries = queries.transpose(1, 2)
+        values = values.transpose(1, 2)
+
+        attn_scores = queries @ keys.transpose(2, 3)
+        attn_scores.masked_fill_(self.mask[:num_tokens,:num_tokens].bool(), -torch.inf)
+        attn_weights = torch.softmax(attn_scores / keys.shape[-1]**0.5, dim=-1)
+
+        attn_weights = self.dropout(attn_weights)
+        context_vecs = attn_weights @ values
+        return context_vecs.transpose(1, 2).contiguous().view(b,num_tokens,self.num_heads*self.d_out)
+```
+
+这里的重点是要厘清张量的形状变化：
+- 输入张量x的形状是(b, num_tokens, d_in)，其中b是batch size，num_tokens是序列长度，d_in是输入向量的维度。
+- 通过权重参数矩阵变换后，得到的keys、queries、values的形状是(b, num_tokens, d_out)。
+- 展开最后一个维度将形状调整为(b, num_tokens, num_heads, head_dim)，其中head_dim = d_out // num_heads。
+- 通过转置将num_heads维度移到第二个位置，得到(b, num_heads, num_tokens, head_dim)。便于计算注意力分数。
+- 计算注意力分数后，得到的attn_weights形状是(b, num_heads, num_tokens, num_tokens)。
+- 通过attn_weights与values相乘，得到的context_vecs形状是(b, num_heads, num_tokens, head_dim)。
+- 最后将context_vecs转置回(b, num_tokens, num_heads, head_dim)，并将形状调整为(b, num_tokens, num_heads * head_dim)，即(b, num_tokens, d_out)。
+
+至此，每个token的上下文向量就被计算出来了。
+
 
 
 
