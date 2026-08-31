@@ -12,7 +12,7 @@
     {% assign site_name = site.SEOTitle | default: site.title | default: "Alex Wong" %}
     <title>{% if page.title %}{{ page.title }} - {{ site_name }}{% else %}{{ site_name }}{% endif %}</title>
 
-    <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/img/alex-wong-avatar.png">
     <link rel="stylesheet" href="{{ "/css/minimal.css" | prepend: site.baseurl }}?v={{ site.time | date: "%s" }}">
 
     {% if page.mathjax %}
@@ -37,6 +37,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content"><span data-lang="zh">跳到正文</span><span data-lang="en" hidden>Skip to content</span></a>
     <!--
       THESIS: an academic-style personal archive where the author and the work are easier to find than the decoration; no marketing hero or card wall.
       OWN-WORLD: neutral paper, blue-grey rules, a restrained blue accent, Chinese-first sans-serif hierarchy, and no invented credentials.
@@ -63,23 +64,14 @@
             </a>
             {% endif %}
 
-            <div class="header-actions">
-                <button id="lang-toggle-btn-mobile" type="button" class="lang-toggle-icon" aria-label="切换到英文" title="切换到英文">EN</button>
-                <button class="mobile-menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="nav-wrapper">
-                    <svg class="mobile-menu-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-                        <path d="M3 5.5h14M3 10h14M3 14.5h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
-                    </svg>
-                </button>
-            </div>
-
             <div class="nav-wrapper" id="nav-wrapper">
                 <nav aria-label="主导航">
                     <ul class="site-nav">
-                        <li><a href="{{ "/" | prepend: site.baseurl }}" data-lang="zh"{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>首页</a><a href="{{ "/" | prepend: site.baseurl }}" data-lang="en" hidden{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>Home</a></li>
+                        <li class="site-nav-home"><a href="{{ "/" | prepend: site.baseurl }}" data-lang="zh"{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>首页</a><a href="{{ "/" | prepend: site.baseurl }}" data-lang="en" hidden{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>Home</a></li>
                         <li><a href="{{ "/articles.html" | prepend: site.baseurl }}" data-lang="zh"{% if page.url == "/articles.html" %} aria-current="page"{% endif %}>文章</a><a href="{{ "/articles.html" | prepend: site.baseurl }}" data-lang="en" hidden{% if page.url == "/articles.html" %} aria-current="page"{% endif %}>Articles</a></li>
                     </ul>
                 </nav>
-                <button id="lang-toggle-btn-desktop" type="button" class="lang-toggle-icon desktop-lang-icon" aria-label="切换到英文" title="切换到英文">EN</button>
+                <button id="lang-toggle-btn" type="button" class="lang-toggle-icon" aria-label="切换到英文" title="切换到英文">EN</button>
                 <button id="personal-panel-toggle-desktop" type="button" class="personal-panel-toggle" aria-controls="personal-panel" aria-expanded="false" aria-label="打开个人侧记" title="打开个人侧记">
                     <span data-lang="zh">侧记</span><span data-lang="en" hidden>Notes</span>
                 </button>
@@ -103,7 +95,7 @@
         </div>
     </aside>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         {{ content }}
     </main>
 

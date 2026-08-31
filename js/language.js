@@ -6,16 +6,12 @@
     zh: {
       switchTo: '切换到英文',
       navigation: '主导航',
-      openMenu: '打开导航',
-      closeMenu: '关闭导航',
       openPersonalPanel: '打开个人侧记',
       closePersonalPanel: '关闭个人侧记'
     },
     en: {
       switchTo: 'Switch to Chinese',
       navigation: 'Primary navigation',
-      openMenu: 'Open navigation',
-      closeMenu: 'Close navigation',
       openPersonalPanel: 'Open personal notes',
       closePersonalPanel: 'Close personal notes'
     }
@@ -38,7 +34,6 @@
     initializePagination();
     initializeTagFilter();
     initializeLanguageControls();
-    initializeMobileMenu();
     initializePersonalPanel();
     initializeTopicIndexToggles();
     initializeMottoRotator();
@@ -87,7 +82,6 @@
     updateToggleButtonText(currentLang);
     updatePrimaryNavLabel(currentLang);
     updatePostNavigationLabel(currentLang);
-    updateMenuToggleLabel(currentLang);
     updatePersonalPanelLabels(currentLang);
 
     paginationStates.forEach(function (state) {
@@ -362,20 +356,6 @@
     }
   }
 
-  function updateMenuToggleLabel(lang, isOpen) {
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-
-    if (menuToggle) {
-      const menuIsOpen = typeof isOpen === 'boolean'
-        ? isOpen
-        : menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute(
-        'aria-label',
-        menuIsOpen ? LANGUAGE_LABELS[lang].closeMenu : LANGUAGE_LABELS[lang].openMenu
-      );
-    }
-  }
-
   function updatePersonalPanelLabels(lang, isOpen) {
     const labels = LANGUAGE_LABELS[lang];
     const panel = document.getElementById('personal-panel');
@@ -422,7 +402,6 @@
     }
 
     if (isOpen) {
-      closeMobileMenu(false);
       panel.hidden = false;
       panel.classList.add('is-open');
       toggles.forEach(function (button) {
@@ -451,10 +430,7 @@
 
   function closePersonalPanel(returnFocus) {
     if (returnFocus && personalPanelTrigger) {
-      const returnTarget = personalPanelTrigger.id === 'personal-panel-toggle-mobile'
-        ? document.querySelector('.mobile-menu-toggle')
-        : personalPanelTrigger;
-      setPersonalPanelState(false, returnTarget || personalPanelTrigger);
+      setPersonalPanelState(false, personalPanelTrigger);
     } else {
       setPersonalPanelState(false, null);
     }
@@ -653,89 +629,4 @@
     return getStoredLanguage();
   };
 
-  function setMobileMenuState(isOpen, returnFocus) {
-    const navWrapper = document.getElementById('nav-wrapper');
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-
-    if (navWrapper && menuToggle) {
-      navWrapper.classList.toggle('active', isOpen);
-      menuToggle.classList.toggle('active', isOpen);
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-      updateMenuToggleLabel(getStoredLanguage(), isOpen);
-
-      if (!isOpen && returnFocus) {
-        menuToggle.focus();
-      }
-    }
-  }
-
-  function closeMobileMenu(returnFocus) {
-    const navWrapper = document.getElementById('nav-wrapper');
-
-    if (navWrapper && navWrapper.classList.contains('active')) {
-      setMobileMenuState(false, returnFocus);
-    }
-  }
-
-  // Toggle mobile menu. The inline handler in the layout keeps this available
-  // during progressive loading as well as after DOMContentLoaded.
-  window.toggleMobileMenu = function () {
-    const navWrapper = document.getElementById('nav-wrapper');
-
-    if (navWrapper) {
-      const willOpen = !navWrapper.classList.contains('active');
-      setMobileMenuState(willOpen, !willOpen);
-    }
-  };
-
-  function initializeMobileMenu() {
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-
-    if (menuToggle) {
-      menuToggle.addEventListener('click', function () {
-        window.toggleMobileMenu();
-      });
-
-      menuToggle.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          window.toggleMobileMenu();
-        }
-      });
-    }
-
-    document.addEventListener('click', function (event) {
-      const navWrapper = document.getElementById('nav-wrapper');
-      const menuToggle = document.querySelector('.mobile-menu-toggle');
-
-      if (!navWrapper || !menuToggle || !navWrapper.classList.contains('active')) {
-        return;
-      }
-
-      if (!navWrapper.contains(event.target) && !menuToggle.contains(event.target)) {
-        closeMobileMenu(true);
-      }
-    });
-
-    document.addEventListener('keydown', function (event) {
-      const navWrapper = document.getElementById('nav-wrapper');
-
-      if (event.key === 'Escape' && navWrapper && navWrapper.classList.contains('active')) {
-        event.preventDefault();
-        closeMobileMenu(true);
-      }
-    });
-
-    document.querySelectorAll('.site-nav a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeMobileMenu(true);
-      });
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 800) {
-        closeMobileMenu(false);
-      }
-    });
-  }
 })();
