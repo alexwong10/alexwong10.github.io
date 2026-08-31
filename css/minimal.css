@@ -21,6 +21,7 @@
   --academic-reading-width: 760px;
   --academic-column-gap: 4.5rem;
   --academic-frame-height: 34.5rem;
+  --page-gutter: 2rem;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI",
     "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", sans-serif;
@@ -139,7 +140,7 @@ li {
   max-width: 1180px;
   min-height: 66px;
   margin: 0 auto;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem var(--page-gutter);
 }
 
 .site-identity {
@@ -475,7 +476,7 @@ main > .academic-page {
   gap: 1rem;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0.9rem 2rem 1.2rem;
+  padding: 0.9rem var(--page-gutter) 1.2rem;
   color: var(--ink-soft);
   font-size: 0.76rem;
   text-align: center;
@@ -493,13 +494,13 @@ main > .academic-page {
 .container {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 4.5rem 2rem 6rem;
+  padding: 4.5rem var(--page-gutter) 6rem;
 }
 
 .academic-page {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 2.75rem 2rem 4rem;
+  padding: 2.75rem var(--page-gutter) 4rem;
 }
 
 .academic-home {
@@ -1516,6 +1517,10 @@ a.pagination-control:hover {
 }
 
 @media (max-width: 800px) {
+  :root {
+    --page-gutter: 1.1rem;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
@@ -1525,7 +1530,7 @@ a.pagination-control:hover {
 
   .site-header-inner {
     min-height: 60px;
-    padding: 0.7rem 1.1rem;
+    padding: 0.7rem var(--page-gutter);
     gap: 1rem;
   }
 
@@ -1630,7 +1635,7 @@ a.pagination-control:hover {
   }
 
   .academic-page {
-    padding: 1.75rem 1.1rem 2.5rem;
+    padding: 1.75rem var(--page-gutter) 2.5rem;
   }
 
   .academic-layout {
@@ -1734,8 +1739,8 @@ a.pagination-control:hover {
   }
 
   .site-footer-inner {
-    padding-right: 1.1rem;
-    padding-left: 1.1rem;
+    padding-right: var(--page-gutter);
+    padding-left: var(--page-gutter);
   }
 
   .archive-intro {
@@ -1779,10 +1784,12 @@ a.pagination-control:hover {
 }
 
 @media (max-width: 520px) {
+  :root {
+    --page-gutter: 0.8rem;
+  }
+
   .site-header-inner {
     gap: 0.5rem;
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
   }
 
   .section-heading {
