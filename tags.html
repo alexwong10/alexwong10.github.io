@@ -1,0 +1,58 @@
+---
+layout: default
+title: "文章标签"
+description: "文章标签"
+permalink: /tags/
+---
+
+<div class="academic-page academic-subpage tags-page">
+    <div class="academic-layout tags-layout">
+        <div class="tags-profile">
+            <div data-lang="zh">{% include profile-rail.html lang="zh" %}</div>
+            <div data-lang="en" hidden>{% include profile-rail.html lang="en" %}</div>
+        </div>
+
+        <div class="academic-content">
+            <section class="archive-intro" aria-labelledby="tags-title">
+                <h2 id="tags-title"><span data-lang="zh">文章标签</span><span data-lang="en" hidden>Article tags</span></h2>
+            </section>
+
+            <div class="tag-archive-groups">
+                {% assign sorted_tags = site.tags | sort %}
+                {% for tag in sorted_tags %}
+                {% assign tag_name = tag[0] %}
+                {% assign tag_anchor = tag_name | downcase | replace: " ", "-" | replace: "+", "-plus" | replace: "/", "-" %}
+                {% assign tag_posts = tag[1] | sort: "date" | reverse %}
+                {% assign tag_label_en = tag_name %}
+                {% case tag_name %}
+                {% when "AI应用" %}{% assign tag_label_en = "AI applications" %}
+                {% when "内存管理" %}{% assign tag_label_en = "Memory management" %}
+                {% when "大模型" %}{% assign tag_label_en = "LLMs" %}
+                {% when "变形金刚" %}{% assign tag_label_en = "Transformers" %}
+                {% when "性能优化" %}{% assign tag_label_en = "Performance optimization" %}
+                {% when "推理部署" %}{% assign tag_label_en = "Inference deployment" %}
+                {% when "注意力" %}{% assign tag_label_en = "Attention" %}
+                {% endcase %}
+                <section class="tag-archive-group" id="tag-{{ tag_anchor }}" data-tag-group="{{ tag_anchor }}" aria-labelledby="tag-title-{{ tag_anchor }}">
+                    <h3 id="tag-title-{{ tag_anchor }}"><span data-lang="zh">{{ tag_name }}</span><span data-lang="en" hidden>{{ tag_label_en }}</span></h3>
+                    <ol class="publication-list">
+                        {% for post in tag_posts %}
+                        <li class="publication-item">
+                            <time class="publication-year" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y' }}</time>
+                            <div class="publication-body">
+                                <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+                                <p>{{ post.excerpt | strip_html | truncate:180 }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </section>
+                {% endfor %}
+            </div>
+            <p class="empty-state tag-filter-empty" data-tag-empty hidden>
+                <span data-lang="zh">没有找到该标签的文章。</span>
+                <span data-lang="en" hidden>No articles found for this tag.</span>
+            </p>
+        </div>
+    </div>
+</div>

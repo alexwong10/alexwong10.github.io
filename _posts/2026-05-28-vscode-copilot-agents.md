@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "在Copilot使用中学习、理解agent"
+title: "在 Copilot 使用中学习、理解 Agent"
 date: 2026-05-28 21:00:00 +0800
 tags: [GitHub Copilot, Agent, AI应用]
 excerpt: "agent的许多概念听起来不难，但具体细节值得玩味"

@@ -1,0 +1,36 @@
+{% assign topic_lang = include.lang | default: "zh" %}
+{% assign topic_index_id = "topic-index-" | append: topic_lang %}
+<section class="archive-topic-index" aria-label="{% if topic_lang == "zh" %}文章标签{% else %}Article tags{% endif %}">
+    <ul id="{{ topic_index_id }}" class="topic-index" data-topic-index>
+        {% assign sorted_tags = site.tags | sort %}
+        {% for tag in sorted_tags %}
+        {% assign tag_name = tag[0] %}
+        {% assign tag_count = tag[1].size %}
+        {% assign topic_label = tag_name %}
+        {% if topic_lang == "en" %}
+        {% case tag_name %}
+        {% when "AI应用" %}{% assign topic_label = "AI applications" %}
+        {% when "内存管理" %}{% assign topic_label = "Memory management" %}
+        {% when "大模型" %}{% assign topic_label = "LLMs" %}
+        {% when "变形金刚" %}{% assign topic_label = "Transformers" %}
+        {% when "性能优化" %}{% assign topic_label = "Performance optimization" %}
+        {% when "推理部署" %}{% assign topic_label = "Inference deployment" %}
+        {% when "注意力" %}{% assign topic_label = "Attention" %}
+        {% endcase %}
+        {% endif %}
+        <li class="topic-index-item" data-tag-count="{{ tag_count }}">
+            {% include tag-link.html tag=tag_name label=topic_label %}<span class="topic-index-count" aria-hidden="true">{{ tag_count }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <button class="topic-index-toggle" type="button" data-topic-index-toggle aria-controls="{{ topic_index_id }}" aria-expanded="false" hidden>
+        <span data-topic-index-state="collapsed">
+            <span data-lang="zh">查看更多标签</span>
+            <span data-lang="en" hidden>Show more tags</span>
+        </span>
+        <span data-topic-index-state="expanded" hidden>
+            <span data-lang="zh">收起标签</span>
+            <span data-lang="en" hidden>Show fewer tags</span>
+        </span>
+    </button>
+</section>

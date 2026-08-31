@@ -6,8 +6,11 @@ description: "页面未找到"
 permalink: /404.html
 ---
 
-<div class="container" style="text-align: center; padding: 5rem 0;">
-    <h1 style="font-size: 3rem; margin-bottom: 1rem;">404</h1>
-    <p style="font-size: 1.25rem; color: #666; margin-bottom: 2rem;">Oops! 页面未找到</p>
-    <a href="/" class="btn">返回首页</a>
+<div class="academic-page error-page">
+    <div class="error-content">
+        <p class="error-code">404</p>
+        <h1>页面未找到</h1>
+        <p>这个地址没有对应的文章或页面。</p>
+        <a class="text-link" href="{{ "/" | prepend: site.baseurl }}">返回首页</a>
+    </div>
 </div>

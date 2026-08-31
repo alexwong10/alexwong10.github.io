@@ -2,42 +2,53 @@
 layout: default
 ---
 
-<div class="container">
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-meta">
-                <span class="date"><i class="fas fa-calendar"></i> {{ page.date | date: "%B %-d, %Y" }}</span>
-                {% if page.tags %}
-                <span class="tags">
-                    {% for tag in page.tags %}
-                    <a href="{{ site.baseurl }}/tags#{{ tag }}" class="tag">{{ tag }}</a>
-                    {% endfor %}
-                </span>
+<div class="academic-page post-page">
+    <div class="academic-layout">
+        {% assign post_profile_lang = page.lang | default: "zh" %}
+        {% include profile-rail.html lang=post_profile_lang %}
+
+        <div class="academic-content">
+            <article class="post-shell">
+                   <header class="post-header">
+                       <h1 class="post-title">{{ page.title }}</h1>
+                   </header>
+
+                   <div class="post-meta">
+                       <time datetime="{{ page.date | date: '%Y-%m-%d' }}">
+                           <span data-lang="zh">{{ page.date | date: "%Y年%-m月%-d日" }}</span>
+                           <span data-lang="en" hidden>{{ page.date | date: "%B %-d, %Y" }}</span>
+                       </time>
+                       {% if page.tags %}
+                       <span class="post-tags">
+                           {% for tag in page.tags %}
+                           {% include tag-link.html tag=tag %}
+                           {% endfor %}
+                       </span>
+                       {% endif %}
+                   </div>
+
+                   <div class="post-content">
+                    {{ content }}
+                </div>
+
+                {% if page.previous.url or page.next.url %}
+                <nav class="post-nav" aria-label="文章导航">
+                    {% if page.previous.url %}
+                    <a href="{{ page.previous.url }}" class="btn btn-outline" data-lang="zh">上一篇</a>
+                    <a href="{{ page.previous.url }}" class="btn btn-outline" data-lang="en" hidden>Previous</a>
+                    {% endif %}
+                    {% if page.next.url %}
+                    <a href="{{ page.next.url }}" class="btn btn-outline" data-lang="zh">下一篇</a>
+                    <a href="{{ page.next.url }}" class="btn btn-outline" data-lang="en" hidden>Next</a>
+                    {% endif %}
+                </nav>
                 {% endif %}
-            </div>
-        </header>
-
-        <div class="post-content">
-            {{ content }}
+            </article>
         </div>
-
-        {% if page.previous.url or page.next.url %}
-        <nav class="post-nav"
-            style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e0e0e0; display: flex; gap: 1rem; flex-wrap: wrap;">
-            {% if page.previous.url %}
-            <a href="{{ page.previous.url }}" class="btn btn-outline">&larr; Previous</a>
-            {% endif %}
-            {% if page.next.url %}
-            <a href="{{ page.next.url }}" class="btn btn-outline">Next &rarr;</a>
-            {% endif %}
-        </nav>
-        {% endif %}
-    </article>
+    </div>
 </div>
 
 {% if page.mathjax %}
-<!-- MathJax Support -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endif %}

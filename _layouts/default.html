@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="{{ site.description }}">
+    <meta name="description" content="{{ site.description | default: page.description | default: 'Alex Wong — technical notes' }}">
     <meta name="keywords" content="{{ site.keyword }}">
     <meta name="theme-color" content="#ffffff">
 
-    <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
+    {% assign site_name = site.SEOTitle | default: site.title | default: "Alex Wong" %}
+    <title>{% if page.title %}{{ page.title }} - {{ site_name }}{% else %}{{ site_name }}{% endif %}</title>
 
-    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
+    <link rel="stylesheet" href="{{ "/css/minimal.css" | prepend: site.baseurl }}?v={{ site.time | date: "%s" }}">
 
-    <!-- Minimal CSS -->
-    <link rel="stylesheet" href="{{ " /css/minimal.css" | prepend: site.baseurl }}">
-
-    <!-- Font Awesome -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <!-- MathJax -->
     {% if page.mathjax %}
     <script>
     MathJax = {
@@ -39,51 +33,83 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     {% endif %}
 
-    <!-- Language Toggle Script -->
-    <script src="{{ " /js/language.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/js/language.js" | prepend: site.baseurl }}?v={{ site.time | date: "%s" }}"></script>
 </head>
 
 <body>
+    <!--
+      THESIS: an academic-style personal archive where the author and the work are easier to find than the decoration; no marketing hero or card wall.
+      OWN-WORLD: neutral paper, blue-grey rules, a restrained blue accent, Chinese-first sans-serif hierarchy, and no invented credentials.
+      STORY: understand Alex's role, scan the topic index and concrete stack, then enter a dated note or the full archive.
+      FIRST VIEWPORT: identity rail on the left; on the right, a short introduction and the first dated articles.
+      FORM: user-directed Chinese technical homepage with a plain academic/archive visual system; Impeccable direction seed bb886984; the explicit job-search brief overrides the roll.
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+    -->
     <header class="site-header">
-        <nav>
-            <h1 class="site-title">
-                <a href="{{ " /" | prepend: site.baseurl }}">{{ site.title }}</a>
+        <div class="site-header-inner">
+            {% if page.url == "/" or page.url == "/index.html" %}
+            <h1 class="site-identity">
+                <span class="site-identity-avatar" aria-hidden="true">
+                    <img src="{{ "/img/alex-wong-avatar.png" | prepend: site.baseurl }}" alt="" width="32" height="32">
+                </span>
+                <span class="site-identity-name">Alex Wong</span>
             </h1>
+            {% else %}
+            <a class="site-identity" href="{{ "/" | prepend: site.baseurl }}">
+                <span class="site-identity-avatar" aria-hidden="true">
+                    <img src="{{ "/img/alex-wong-avatar.png" | prepend: site.baseurl }}" alt="" width="32" height="32">
+                </span>
+                <span class="site-identity-name">Alex Wong</span>
+            </a>
+            {% endif %}
+
             <div class="header-actions">
-                <button id="lang-toggle-btn-mobile" onclick="toggleSiteLanguage()" class="lang-toggle-icon" aria-label="Toggle Language">
-                    <i class="fas fa-language"></i>
-                </button>
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button id="lang-toggle-btn-mobile" type="button" class="lang-toggle-icon" aria-label="切换到英文" title="切换到英文">EN</button>
+                <button class="mobile-menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="nav-wrapper">
+                    <svg class="mobile-menu-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                        <path d="M3 5.5h14M3 10h14M3 14.5h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+                    </svg>
                 </button>
             </div>
+
             <div class="nav-wrapper" id="nav-wrapper">
-                <ul class="site-nav">
-                    <li><a href="{{ " /" | prepend: site.baseurl }}" data-lang="zh">首页</a><a href="{{ " /" | prepend:
-                            site.baseurl }}" data-lang="en" style="display: none;">Home</a></li>
-                    <li><a href="{{ " /articles.html" | prepend: site.baseurl }}" data-lang="zh">文章</a><a href="{{ "
-                            /articles.html" | prepend: site.baseurl }}" data-lang="en"
-                            style="display: none;">Articles</a></li>
-                    <li><a href="{{ " /about.html" | prepend: site.baseurl }}" data-lang="zh">关于</a><a href="{{ "
-                            /about.html" | prepend: site.baseurl }}" data-lang="en" style="display: none;">About</a>
-                    </li>
-                </ul>
-                <button id="lang-toggle-btn-desktop" onclick="toggleSiteLanguage()" class="lang-toggle-icon desktop-lang-icon" aria-label="Toggle Language">
-                    <i class="fas fa-language"></i>
+                <nav aria-label="主导航">
+                    <ul class="site-nav">
+                        <li><a href="{{ "/" | prepend: site.baseurl }}" data-lang="zh"{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>首页</a><a href="{{ "/" | prepend: site.baseurl }}" data-lang="en" hidden{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>Home</a></li>
+                        <li><a href="{{ "/articles.html" | prepend: site.baseurl }}" data-lang="zh"{% if page.url == "/articles.html" %} aria-current="page"{% endif %}>文章</a><a href="{{ "/articles.html" | prepend: site.baseurl }}" data-lang="en" hidden{% if page.url == "/articles.html" %} aria-current="page"{% endif %}>Articles</a></li>
+                    </ul>
+                </nav>
+                <button id="lang-toggle-btn-desktop" type="button" class="lang-toggle-icon desktop-lang-icon" aria-label="切换到英文" title="切换到英文">EN</button>
+                <button id="personal-panel-toggle-desktop" type="button" class="personal-panel-toggle" aria-controls="personal-panel" aria-expanded="false" aria-label="打开个人侧记" title="打开个人侧记">
+                    <span data-lang="zh">侧记</span><span data-lang="en" hidden>Notes</span>
                 </button>
             </div>
-        </nav>
+        </div>
     </header>
+
+    <aside id="personal-panel" class="personal-panel" role="dialog" aria-modal="false" aria-labelledby="personal-panel-title" hidden>
+        <div class="personal-panel-inner">
+            <div class="personal-panel-heading">
+                <div>
+                    <p class="personal-panel-kicker"><span data-lang="zh">个人侧记</span><span data-lang="en" hidden>Personal notes</span></p>
+                    <h2 class="personal-panel-title" id="personal-panel-title"><span data-lang="zh">简历之外</span><span data-lang="en" hidden>Beyond the résumé</span></h2>
+                </div>
+                <button class="personal-panel-close" type="button" aria-label="关闭个人侧记" title="关闭个人侧记">
+                    <span class="personal-panel-close-icon" aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <p class="personal-panel-intro"><span data-lang="zh">暂时没有侧记内容。</span><span data-lang="en" hidden>No personal notes yet.</span></p>
+        </div>
+    </aside>
 
     <main>
         {{ content }}
     </main>
 
     <footer class="site-footer">
-        <div class="footer-content">
-            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+        <div class="site-footer-inner">
+            <p class="site-footer-copyright">&copy; {{ site.time | date: '%Y' }} Alex Wong &middot; <span data-lang="zh">保留所有权利。</span><span data-lang="en" hidden>All rights reserved.</span></p>
         </div>
     </footer>
 </body>
