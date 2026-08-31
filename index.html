@@ -4,7 +4,7 @@ description: "个人博客 - 技术分享与思考"
 ---
 
 {% assign posts = site.posts | sort: 'date' | reverse %}
-{% assign zh_posts = posts | where_exp: "post", "post.lang == 'zh' or post.lang == nil" %}
+{% assign zh_posts = posts | where_exp: "post", "post.lang != 'en'" %}
 {% assign en_posts = posts | where_exp: "post", "post.lang == 'en'" %}
 {% assign zh_recent_posts = zh_posts | slice: 0, 4 %}
 {% assign en_recent_posts = en_posts | slice: 0, 4 %}

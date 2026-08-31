@@ -16,7 +16,7 @@ permalink: /articles.html
             </section>
 
             {% assign posts = site.posts | sort: 'date' | reverse %}
-            {% assign zh_posts = posts | where_exp: "post", "post.lang == 'zh' or post.lang == nil" %}
+            {% assign zh_posts = posts | where_exp: "post", "post.lang != 'en'" %}
             {% if zh_posts.size > 0 %}
             <ol id="archive-list-zh" class="publication-list archive-list" data-pagination-list data-page-size="auto" data-page-size-fallback="4">
                 {% assign current_year = "" %}
