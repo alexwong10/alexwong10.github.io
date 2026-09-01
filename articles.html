@@ -12,7 +12,6 @@ permalink: /articles.html
         <div class="academic-content">
             <section class="archive-intro" aria-labelledby="archive-title-zh">
                 <h2 id="archive-title-zh">全部文章</h2>
-                {% include topic-index.html lang="zh" %}
             </section>
 
             {% assign posts = site.posts | sort: 'date' | reverse %}
@@ -32,11 +31,7 @@ permalink: /articles.html
                     <ol class="archive-year-list">
                 {% assign current_year = post_year %}
                 {% endif %}
-                        <li class="publication-item">
-                            <div class="publication-body">
-                                <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-                            </div>
-                        </li>
+                {% include publication-item.html post=post %}
                 {% endfor %}
                 {% unless current_year == "" %}
                     </ol>
@@ -50,6 +45,11 @@ permalink: /articles.html
             {% else %}
             <p class="empty-state">暂无文章</p>
             {% endif %}
+
+            <div class="archive-topics">
+                <h3 class="archive-topics-title">按标签浏览</h3>
+                {% include topic-index.html lang="zh" %}
+            </div>
         </div>
     </div>
 </div>
@@ -61,7 +61,6 @@ permalink: /articles.html
         <div class="academic-content">
             <section class="archive-intro" aria-labelledby="archive-title-en">
                 <h2 id="archive-title-en">All articles</h2>
-                {% include topic-index.html lang="en" %}
             </section>
 
             {% assign posts = site.posts | sort: 'date' | reverse %}
@@ -81,11 +80,7 @@ permalink: /articles.html
                     <ol class="archive-year-list">
                 {% assign current_year = post_year %}
                 {% endif %}
-                        <li class="publication-item">
-                            <div class="publication-body">
-                                <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-                            </div>
-                        </li>
+                {% include publication-item.html post=post %}
                 {% endfor %}
                 {% unless current_year == "" %}
                     </ol>
@@ -99,6 +94,11 @@ permalink: /articles.html
             {% else %}
             <p class="empty-state">No articles yet</p>
             {% endif %}
+
+            <div class="archive-topics">
+                <h3 class="archive-topics-title">Browse by category</h3>
+                {% include topic-index.html lang="en" %}
+            </div>
         </div>
     </div>
 </div>

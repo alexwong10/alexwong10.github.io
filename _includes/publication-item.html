@@ -1,0 +1,20 @@
+<li class="publication-item">
+    <div class="publication-body">
+        <h3><a href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title }}</a></h3>
+        {% if include.post.excerpt %}
+        <p class="publication-excerpt">{{ include.post.excerpt | strip_html | strip_newlines | escape }}</p>
+        {% endif %}
+        <div class="publication-meta">
+            <time class="publication-date" datetime="{{ include.post.date | date: '%Y-%m-%d' }}">
+                <span data-lang="zh">{{ include.post.date | date: "%Y年%-m月%-d日" }}</span>
+                <span data-lang="en" hidden>{{ include.post.date | date: "%B %-d, %Y" }}</span>
+            </time>
+            {% if include.post.tags %}
+            <span class="publication-meta-separator" aria-hidden="true">·</span>
+            <div class="inline-tags">
+                {% for tag in include.post.tags %}{% include tag-link.html tag=tag %}{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</li>

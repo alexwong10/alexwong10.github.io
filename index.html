@@ -23,20 +23,7 @@ description: "个人博客 - 技术分享与思考"
                 {% if zh_recent_posts.size > 0 %}
                 <ol class="publication-list" data-lang="zh" aria-label="最新文章">
                     {% for post in zh_recent_posts %}
-                    <li class="publication-item">
-                        <div class="publication-body">
-                            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-                            <div class="publication-meta">
-                                <time class="publication-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y-%m-%d' }}</time>
-                                {% if post.tags %}
-                                <span class="publication-meta-separator" aria-hidden="true">·</span>
-                                <div class="inline-tags" aria-label="文章标签">
-                                    {% for tag in post.tags %}{% include tag-link.html tag=tag %}{% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </li>
+                    {% include publication-item.html post=post %}
                     {% endfor %}
                 </ol>
                 {% else %}
@@ -46,20 +33,7 @@ description: "个人博客 - 技术分享与思考"
                 {% if en_recent_posts.size > 0 %}
                 <ol class="publication-list" data-lang="en" hidden aria-label="Recent articles">
                     {% for post in en_recent_posts %}
-                    <li class="publication-item">
-                        <div class="publication-body">
-                            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-                            <div class="publication-meta">
-                                <time class="publication-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y-%m-%d' }}</time>
-                                {% if post.tags %}
-                                <span class="publication-meta-separator" aria-hidden="true">·</span>
-                                <div class="inline-tags" aria-label="Post tags">
-                                    {% for tag in post.tags %}{% include tag-link.html tag=tag %}{% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </li>
+                    {% include publication-item.html post=post %}
                     {% endfor %}
                 </ol>
                 {% else %}
