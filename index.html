@@ -1,6 +1,7 @@
 ---
 layout: default
 description: "个人博客 - 技术分享与思考"
+description_en: "Personal blog — technical notes and reflections"
 ---
 
 {% assign posts = site.posts | sort: 'date' | reverse %}
@@ -41,7 +42,7 @@ description: "个人博客 - 技术分享与思考"
                 {% endif %}
 
                 <div class="topic-browse">
-                    <h3 class="topic-browse-title"><span data-lang="zh">按标签浏览</span><span data-lang="en" hidden>Browse by category</span></h3>
+                    <h3 class="topic-browse-title"><span data-lang="zh">按标签浏览</span><span data-lang="en" hidden>Browse by tag</span></h3>
                     <div data-lang="zh">
                         {% include topic-index.html lang="zh" %}
                     </div>

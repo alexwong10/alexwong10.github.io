@@ -27,6 +27,7 @@
     }
   };
   const paginationStates = [];
+  const mottoStates = [];
   let paginationResizeTimer = null;
 
   // Initialize language on page load
@@ -79,11 +80,14 @@
 
     // Keep browser text shaping and assistive technology in sync after a toggle.
     document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+    updateMetaDescription(currentLang);
     updateDocumentTitle(currentLang);
     updateToggleButtonText(currentLang);
     updatePrimaryNavLabel(currentLang);
     updatePostNavigationLabel(currentLang);
+    updatePostTocLabel(currentLang);
     updatePersonalPanelLabels(currentLang);
+    updateMottoRotators(currentLang);
 
     paginationStates.forEach(function (state) {
       if (state.autoPageSize && state.lang === currentLang) {
@@ -348,12 +352,34 @@
     });
   }
 
+  function updatePostTocLabel(lang) {
+    document.querySelectorAll('.post-toc').forEach(function (toc) {
+      toc.setAttribute('aria-label', lang === 'zh' ? '目录' : 'Table of contents');
+    });
+  }
+
   function updateDocumentTitle(lang) {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     const pageTitle = PAGE_TITLES[path] && PAGE_TITLES[path][lang];
 
     if (pageTitle) {
       document.title = pageTitle + ' - Alex Wong';
+    }
+  }
+
+  function updateMetaDescription(lang) {
+    const description = document.querySelector('#page-description');
+
+    if (!description) {
+      return;
+    }
+
+    const content = lang === 'en'
+      ? description.dataset.descriptionEn
+      : description.dataset.descriptionZh;
+
+    if (content) {
+      description.setAttribute('content', content);
     }
   }
 
@@ -572,7 +598,8 @@
 
   function initializePostToc() {
     document.querySelectorAll('[data-post-toc]').forEach(function (toc) {
-      const article = toc.closest('.post-shell');
+      const page = toc.closest('.post-page');
+      const article = page && page.querySelector('.post-shell');
       const content = article && article.querySelector('.post-content');
       const list = toc.querySelector('.post-toc-list');
 
@@ -675,53 +702,90 @@
 
     rotators.forEach(function (rotator) {
       const text = rotator.querySelector('.profile-motto-text');
-      const phrases = (rotator.dataset.phrases || '').split('|').filter(Boolean);
 
-      if (!text || !phrases.length) {
+      if (!text) {
         return;
       }
 
-      if (reduceMotion) {
-        text.textContent = phrases[0];
-        return;
-      }
-
-      let phraseIndex = 0;
-      let characterIndex = 0;
-      let deleting = false;
-
-      function typeNextCharacter() {
-        const phrase = phrases[phraseIndex];
-
-        if (!deleting) {
-          characterIndex += 1;
-          text.textContent = phrase.slice(0, characterIndex);
-
-          if (characterIndex === phrase.length) {
-            deleting = true;
-            window.setTimeout(typeNextCharacter, 1800);
-            return;
-          }
-
-          window.setTimeout(typeNextCharacter, 105);
-          return;
-        }
-
-        characterIndex -= 1;
-        text.textContent = phrase.slice(0, characterIndex);
-
-        if (characterIndex === 0) {
-          deleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          window.setTimeout(typeNextCharacter, 380);
-          return;
-        }
-
-        window.setTimeout(typeNextCharacter, 65);
-      }
-
-      typeNextCharacter();
+      mottoStates.push({
+        rotator: rotator,
+        text: text,
+        reduceMotion: reduceMotion,
+        phrases: [],
+        phraseIndex: 0,
+        characterIndex: 0,
+        deleting: false,
+        timer: null
+      });
     });
+  }
+
+  function updateMottoRotators(lang) {
+    mottoStates.forEach(function (state) {
+      if (state.timer) {
+        window.clearTimeout(state.timer);
+      }
+
+      const phraseDataKey = lang === 'en' ? 'phrasesEn' : 'phrasesZh';
+      const phraseData = state.rotator.dataset[phraseDataKey] || state.rotator.dataset.phrases || '';
+      const phrases = phraseData.split('|').filter(Boolean);
+
+      if (!phrases.length) {
+        state.text.textContent = '';
+        state.phrases = [];
+        return;
+      }
+
+      state.phrases = phrases;
+      state.phraseIndex = 0;
+      state.characterIndex = 0;
+      state.deleting = false;
+
+      if (state.reduceMotion) {
+        state.text.textContent = phrases[0];
+        return;
+      }
+
+      typeNextMottoCharacter(state);
+    });
+  }
+
+  function typeNextMottoCharacter(state) {
+    const phrase = state.phrases[state.phraseIndex];
+
+    if (!state.deleting) {
+      state.characterIndex += 1;
+      state.text.textContent = phrase.slice(0, state.characterIndex);
+
+      if (state.characterIndex === phrase.length) {
+        state.deleting = true;
+        state.timer = window.setTimeout(function () {
+          typeNextMottoCharacter(state);
+        }, 1800);
+        return;
+      }
+
+      state.timer = window.setTimeout(function () {
+        typeNextMottoCharacter(state);
+      }, 105);
+      return;
+    }
+
+    state.characterIndex -= 1;
+    state.text.textContent = phrase.slice(0, state.characterIndex);
+
+    if (state.characterIndex === 0) {
+      state.deleting = false;
+      state.phraseIndex = (state.phraseIndex + 1) % state.phrases.length;
+      state.timer = window.setTimeout(function () {
+        typeNextMottoCharacter(state);
+      }, 380);
+      return;
+    }
+
+    state.timer = window.setTimeout(function () {
+      typeNextMottoCharacter(state);
+    }, 65);
   }
 
   // Get current language

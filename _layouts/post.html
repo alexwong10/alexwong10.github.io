@@ -4,41 +4,37 @@ layout: default
 
 <div class="academic-page post-page">
     <div class="academic-layout">
-        {% assign post_profile_lang = page.lang | default: "zh" %}
-        {% include profile-rail.html lang=post_profile_lang %}
+        <aside class="post-sidebar">
+            <nav class="post-toc" data-post-toc aria-label="目录" hidden>
+                <ol class="post-toc-list"></ol>
+            </nav>
+        </aside>
 
         <div class="academic-content">
             <article class="post-shell">
                 <header class="post-header">
-                    <h1 class="post-title">{{ page.title }}</h1>
-
-                    <div class="post-meta" aria-label="文章信息">
-                        <span class="post-meta-item">
-                            <span class="post-meta-label"><span data-lang="zh">发表于</span><span data-lang="en" hidden>Published</span></span>
-                            <time datetime="{{ page.date | date: '%Y-%m-%d' }}">
-                                <span data-lang="zh">{{ page.date | date: "%Y年%-m月%-d日" }}</span>
-                                <span data-lang="en" hidden>{{ page.date | date: "%B %-d, %Y" }}</span>
-                            </time>
-                        </span>
+                    <h1 class="post-title mixed-script">{{ page.title }}</h1>
+                    {% if page.date or page.tags %}
+                    <div class="post-meta publication-meta">
+                        {% if page.date %}
+                        <time class="post-date publication-date" datetime="{{ page.date | date: '%Y-%m-%d' }}">
+                            <span data-lang="zh">{{ page.date | date: "%Y年%-m月%-d日" }}</span>
+                            <span data-lang="en" hidden>{{ page.date | date: "%B %-d, %Y" }}</span>
+                        </time>
+                        {% endif %}
+                        {% if page.date and page.tags %}
+                        <span class="post-meta-separator publication-meta-separator" aria-hidden="true">·</span>
+                        {% endif %}
                         {% if page.tags %}
-                        <span class="post-meta-item post-meta-tags">
-                            <span class="post-meta-label"><span data-lang="zh">标签</span><span data-lang="en" hidden>Tags</span></span>
-                            <span class="post-tags">
-                                {% for tag in page.tags %}
-                                {% include tag-link.html tag=tag %}
-                                {% endfor %}
-                            </span>
-                        </span>
+                        <div class="post-tags inline-tags">
+                            {% for tag in page.tags %}{% include tag-link.html tag=tag %}{% endfor %}
+                        </div>
                         {% endif %}
                     </div>
+                    {% endif %}
                 </header>
 
-                <nav class="post-toc" data-post-toc aria-labelledby="post-toc-title" hidden>
-                    <h2 id="post-toc-title"><span data-lang="zh">文章目录</span><span data-lang="en" hidden>Table of contents</span></h2>
-                    <ol class="post-toc-list"></ol>
-                </nav>
-
-                <div class="post-content">
+                <div class="post-content mixed-script">
                     {{ content }}
                 </div>
 

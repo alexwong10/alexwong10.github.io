@@ -2,6 +2,7 @@
 layout: default
 title: "文章标签"
 description: "文章标签"
+description_en: "Article tags"
 permalink: /tags/
 ---
 
@@ -40,8 +41,8 @@ permalink: /tags/
                         <li class="publication-item">
                             <time class="publication-year" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y' }}</time>
                             <div class="publication-body">
-                                <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-                                <p>{{ post.excerpt | strip_html | truncate:180 }}</p>
+                                <h3 class="mixed-script"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+                                <p class="mixed-script">{{ post.excerpt | strip_html | truncate:180 }}</p>
                             </div>
                         </li>
                         {% endfor %}

@@ -1,9 +1,9 @@
 <li class="publication-item">
     <div class="publication-body">
-        <h3><a href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title }}</a></h3>
+        <h3 class="mixed-script"><a href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title }}</a></h3>
         {% unless include.compact %}
         {% if include.post.excerpt %}
-        <p class="publication-excerpt">{{ include.post.excerpt | strip_html | strip_newlines | escape }}</p>
+        <p class="publication-excerpt mixed-script">{{ include.post.excerpt | strip_html | strip_newlines | escape }}</p>
         {% endif %}
         <div class="publication-meta">
             <time class="publication-date" datetime="{{ include.post.date | date: '%Y-%m-%d' }}">
