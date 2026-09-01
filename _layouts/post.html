@@ -9,25 +9,36 @@ layout: default
 
         <div class="academic-content">
             <article class="post-shell">
-                   <header class="post-header">
-                       <h1 class="post-title">{{ page.title }}</h1>
-                   </header>
+                <header class="post-header">
+                    <h1 class="post-title">{{ page.title }}</h1>
 
-                   <div class="post-meta">
-                       <time datetime="{{ page.date | date: '%Y-%m-%d' }}">
-                           <span data-lang="zh">{{ page.date | date: "%Y年%-m月%-d日" }}</span>
-                           <span data-lang="en" hidden>{{ page.date | date: "%B %-d, %Y" }}</span>
-                       </time>
-                       {% if page.tags %}
-                       <span class="post-tags">
-                           {% for tag in page.tags %}
-                           {% include tag-link.html tag=tag %}
-                           {% endfor %}
-                       </span>
-                       {% endif %}
-                   </div>
+                    <div class="post-meta" aria-label="文章信息">
+                        <span class="post-meta-item">
+                            <span class="post-meta-label"><span data-lang="zh">发表于</span><span data-lang="en" hidden>Published</span></span>
+                            <time datetime="{{ page.date | date: '%Y-%m-%d' }}">
+                                <span data-lang="zh">{{ page.date | date: "%Y年%-m月%-d日" }}</span>
+                                <span data-lang="en" hidden>{{ page.date | date: "%B %-d, %Y" }}</span>
+                            </time>
+                        </span>
+                        {% if page.tags %}
+                        <span class="post-meta-item post-meta-tags">
+                            <span class="post-meta-label"><span data-lang="zh">标签</span><span data-lang="en" hidden>Tags</span></span>
+                            <span class="post-tags">
+                                {% for tag in page.tags %}
+                                {% include tag-link.html tag=tag %}
+                                {% endfor %}
+                            </span>
+                        </span>
+                        {% endif %}
+                    </div>
+                </header>
 
-                   <div class="post-content">
+                <nav class="post-toc" data-post-toc aria-labelledby="post-toc-title" hidden>
+                    <h2 id="post-toc-title"><span data-lang="zh">文章目录</span><span data-lang="en" hidden>Table of contents</span></h2>
+                    <ol class="post-toc-list"></ol>
+                </nav>
+
+                <div class="post-content">
                     {{ content }}
                 </div>
 

@@ -37,6 +37,7 @@
     initializePersonalPanel();
     initializeTopicIndexToggles();
     initializeMottoRotator();
+    initializePostToc();
     applyLanguage(getStoredLanguage());
   });
 
@@ -567,6 +568,105 @@
     toggle.querySelectorAll('[data-topic-index-state]').forEach(function (label) {
       label.hidden = label.dataset.topicIndexState !== activeState;
     });
+  }
+
+  function initializePostToc() {
+    document.querySelectorAll('[data-post-toc]').forEach(function (toc) {
+      const article = toc.closest('.post-shell');
+      const content = article && article.querySelector('.post-content');
+      const list = toc.querySelector('.post-toc-list');
+
+      if (!content || !list) {
+        return;
+      }
+
+      const headings = Array.from(content.querySelectorAll('h2, h3'));
+
+      if (!headings.length) {
+        return;
+      }
+
+      const usedIds = new Set();
+
+      headings.forEach(function (heading, headingIndex) {
+        const baseId = heading.id || createHeadingId(heading.textContent, headingIndex);
+        let headingId = baseId;
+        let suffix = 2;
+
+        while (
+          usedIds.has(headingId) ||
+          (document.getElementById(headingId) && document.getElementById(headingId) !== heading)
+        ) {
+          headingId = baseId + '-' + suffix;
+          suffix += 1;
+        }
+
+        heading.id = headingId;
+        usedIds.add(headingId);
+
+        const item = document.createElement('li');
+        item.className = 'post-toc-item post-toc-item-' + heading.tagName.toLowerCase();
+
+        const link = document.createElement('a');
+        link.href = '#' + headingId;
+        link.textContent = heading.textContent.trim();
+
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+
+      const links = Array.from(list.querySelectorAll('a'));
+      const setActiveHeading = function (headingId) {
+        links.forEach(function (link) {
+          const isActive = link.getAttribute('href') === '#' + headingId;
+          link.classList.toggle('is-active', isActive);
+
+          if (isActive) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      setActiveHeading(headings[0].id);
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          const visibleHeadings = entries
+            .filter(function (entry) {
+              return entry.isIntersecting;
+            })
+            .sort(function (first, second) {
+              return first.boundingClientRect.top - second.boundingClientRect.top;
+            });
+
+          if (visibleHeadings.length) {
+            setActiveHeading(visibleHeadings[0].target.id);
+          }
+        }, {
+          rootMargin: '-12% 0px -70% 0px',
+          threshold: [0, 1]
+        });
+
+        headings.forEach(function (heading) {
+          observer.observe(heading);
+        });
+      }
+
+      toc.hidden = false;
+    });
+  }
+
+  function createHeadingId(text, index) {
+    const normalized = (text || '')
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s\u00a0-\uffff-]/g, '')
+      .replace(/\s+/g, '-')
+      .slice(0, 80);
+
+    return normalized || 'section-' + (index + 1);
   }
 
   function initializeMottoRotator() {

@@ -1,14 +1,5 @@
 {% assign profile_lang = include.lang | default: "all" %}
 <aside class="profile-rail">
-    <div class="profile-identity">
-        <p class="profile-motto">
-            <span class="profile-motto-rotator" data-phrases="雷猴，我系Alex！|Hi, I am Alex!|你好，我是Alex！" aria-hidden="true">
-                <span class="profile-motto-text"></span><span class="profile-motto-caret"></span>
-            </span>
-            <span class="sr-only">雷猴，我系Alex！ / Hi, I am Alex! / 你好，我是Alex！</span>
-        </p>
-    </div>
-
     <section class="profile-section profile-section-bio" aria-label="{% if profile_lang == "zh" %}个人简介{% elsif profile_lang == "en" %}About me{% else %}个人简介 / About me{% endif %}">
         <div class="profile-bio">
             <p><span data-lang="zh">我从事交换机软件开发，技术栈为 C / Linux / Python。</span><span data-lang="en" hidden>I develop network switch software using C / Linux / Python.</span></p>

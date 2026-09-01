@@ -101,7 +101,15 @@
 
     <footer class="site-footer">
         <div class="site-footer-inner">
-            <p class="site-footer-copyright">&copy; {{ site.time | date: '%Y' }} Alex Wong &middot; <span data-lang="zh">保留所有权利。</span><span data-lang="en" hidden>All rights reserved.</span></p>
+            <p class="site-footer-copyright">
+                &copy; {{ site.time | date: '%Y' }} <span aria-hidden="true">&middot;</span>
+                <span class="site-footer-motto">
+                    <span class="profile-motto-rotator" data-phrases="雷猴，我系Alex！|Hi, I am Alex!|你好，我是Alex！" aria-hidden="true">
+                        <span class="profile-motto-text"></span><span class="profile-motto-caret"></span>
+                    </span>
+                    <span class="sr-only">雷猴，我系Alex！ / Hi, I am Alex! / 你好，我是Alex！</span>
+                </span>
+            </p>
         </div>
     </footer>
 </body>
