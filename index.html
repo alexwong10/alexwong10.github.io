@@ -39,6 +39,16 @@ description: "个人博客 - 技术分享与思考"
                 {% else %}
                 <p class="empty-state" data-lang="en" hidden>No articles yet</p>
                 {% endif %}
+
+                <div class="topic-browse">
+                    <h3 class="topic-browse-title"><span data-lang="zh">按标签浏览</span><span data-lang="en" hidden>Browse by category</span></h3>
+                    <div data-lang="zh">
+                        {% include topic-index.html lang="zh" %}
+                    </div>
+                    <div data-lang="en" hidden>
+                        {% include topic-index.html lang="en" %}
+                    </div>
+                </div>
             </section>
         </div>
     </div>

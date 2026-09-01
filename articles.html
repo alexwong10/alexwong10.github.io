@@ -31,7 +31,7 @@ permalink: /articles.html
                     <ol class="archive-year-list">
                 {% assign current_year = post_year %}
                 {% endif %}
-                {% include publication-item.html post=post %}
+                {% include publication-item.html post=post compact=true %}
                 {% endfor %}
                 {% unless current_year == "" %}
                     </ol>
@@ -46,10 +46,6 @@ permalink: /articles.html
             <p class="empty-state">暂无文章</p>
             {% endif %}
 
-            <div class="archive-topics">
-                <h3 class="archive-topics-title">按标签浏览</h3>
-                {% include topic-index.html lang="zh" %}
-            </div>
         </div>
     </div>
 </div>
@@ -80,7 +76,7 @@ permalink: /articles.html
                     <ol class="archive-year-list">
                 {% assign current_year = post_year %}
                 {% endif %}
-                {% include publication-item.html post=post %}
+                {% include publication-item.html post=post compact=true %}
                 {% endfor %}
                 {% unless current_year == "" %}
                     </ol>
@@ -95,10 +91,6 @@ permalink: /articles.html
             <p class="empty-state">No articles yet</p>
             {% endif %}
 
-            <div class="archive-topics">
-                <h3 class="archive-topics-title">Browse by category</h3>
-                {% include topic-index.html lang="en" %}
-            </div>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <li class="publication-item">
     <div class="publication-body">
         <h3><a href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title }}</a></h3>
+        {% unless include.compact %}
         {% if include.post.excerpt %}
         <p class="publication-excerpt">{{ include.post.excerpt | strip_html | strip_newlines | escape }}</p>
         {% endif %}
@@ -16,5 +17,6 @@
             </div>
             {% endif %}
         </div>
+        {% endunless %}
     </div>
 </li>
