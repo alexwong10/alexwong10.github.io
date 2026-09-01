@@ -817,6 +817,7 @@ main > .academic-page {
 .academic-home .publication-list {
   display: grid;
   gap: 2rem;
+  margin-top: 1.5rem;
 }
 
 .publication-item {
